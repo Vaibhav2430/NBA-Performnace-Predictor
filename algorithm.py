@@ -3,61 +3,77 @@ import numpy as np
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import playergamelog
 from sklearn.linear_model import LinearRegression
-import time
 
-# 1. HELPER FUNCTION: Find Player ID by Name
+# 1. HELPER: Find Player ID
 def get_player_id(name):
     nba_players = players.get_players()
     player = [p for p in nba_players if p['full_name'].lower() == name.lower()]
-    if not player:
-        raise ValueError(f"Could not find player: {name}")
-    return player[0]['id']
+    return player[0]['id'] if player else None
 
-# 2. HELPER FUNCTION: Convert "MM:SS" or integer minutes to float
+# 2. HELPER: Convert "MM:SS" strings or integers to float
 def clean_minutes(min_val):
     if isinstance(min_val, str) and ':' in min_val:
         parts = min_val.split(':')
         return float(parts[0]) + float(parts[1])/60
     return float(min_val)
 
-# --- SETTINGS ---
-PLAYER_NAME = "LeBron James"
-PROJECTED_MINUTES = 35
+def run_prediction():
+    print("\n--- NBA Player Point Projector ---")
+    target_player = input("Enter Player Full Name (or 'quit' to stop): ")
+    
+    if target_player.lower() == 'quit':
+        return False
 
-try:
-    print(f"Fetching data for {PLAYER_NAME}...")
-    pid = get_player_id(PLAYER_NAME)
+    pid = get_player_id(target_player)
+    if pid is None:
+        print(f"Error: Could not find '{target_player}'. Check your spelling!")
+        return True
 
-    # 3. FETCH DATA (2024-25 Season)
-    gamelog = playergamelog.PlayerGameLog(player_id=pid, season='2024')
-    df = gamelog.get_data_frames()[0]
+    try:
+        # 3. Fetch Data for 2024-25 Season
+        print(f"Analyzing {target_player}'s recent performance...")
+        gamelog = playergamelog.PlayerGameLog(player_id=pid, season='2024')
+        df = gamelog.get_data_frames()[0]
 
-    if df.empty:
-        print("No game data found for this player in the current season.")
-    else:
-        # 4. DATA CLEANING
-        # Use our helper function to fix the 'int object has no attribute split' error
+        if df.empty:
+            print("No data found for this player in the current season.")
+            return True
+
+        # 4. Data Cleaning
         df['MIN_FLOAT'] = df['MIN'].apply(clean_minutes)
+        recent = df.head(15).copy() # Use last 15 games
         
-        # Take the last 15 games for a better sample size
-        recent_games = df.head(15).copy()
+        # 5. Train the Model
+        # X must be a DataFrame with a name to match prediction later
+        X = recent[['MIN_FLOAT']] 
+        y = recent['PTS']
         
-        X = recent_games[['MIN_FLOAT']] # Features
-        y = recent_games['PTS']        # Target
-
-        # 5. TRAIN THE MODEL
         model = LinearRegression()
         model.fit(X, y)
 
-        # 6. MAKE PREDICTION
-        prediction = model.predict([[PROJECTED_MINUTES]])
+        # 6. User Input for Prediction
+        mins_input = input(f"How many minutes do you expect {target_player} to play tonight? ")
+        expected_mins = float(mins_input)
 
-        print("\n" + "="*30)
-        print(f"RESULTS FOR {PLAYER_NAME.upper()}")
-        print(f"Games analyzed: {len(recent_games)}")
-        print(f"If he plays {PROJECTED_MINUTES} mins tonight...")
-        print(f"PROJECTED POINTS: {prediction[0]:.1f}")
-        print("="*30)
+        # 7. Make Prediction (using a DataFrame to avoid UserWarnings)
+        prediction_df = pd.DataFrame([[expected_mins]], columns=['MIN_FLOAT'])
+        prediction_raw = model.predict(prediction_df)
 
-except Exception as e:
-    print(f"An error occurred: {e}")
+        # 8. Prevent Negative Points
+        # np.clip ensures the number never drops below 0.0
+        final_points = np.clip(prediction_raw[0], 0, None)
+
+        print(f"\n>>> RESULT FOR {target_player.upper()}")
+        print(f"Based on 15 games, if playing {expected_mins} mins:")
+        print(f"PROJECTED POINTS: {final_points:.1f}")
+        print("-" * 40)
+
+    except Exception as e:
+        print(f"Something went wrong: {e}")
+    
+    return True
+
+# Main Loop
+running = True
+while running:
+    running = run_prediction()
