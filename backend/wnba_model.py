@@ -4,6 +4,7 @@ import requests
 import numpy as np
 import pandas as pd
 from xgboost import XGBRegressor
+import defense_by_position as dbp
 
 
 def _current_wnba_season() -> str:
@@ -21,6 +22,7 @@ FEATURE_COLS = [
     "reb_l5", "reb_l10",
     "min_l5", "home", "days_rest",
     "opp_def_pts", "opp_off_pts",
+    "opp_def_pts_vs_pos", "opp_def_ast_vs_pos", "opp_def_reb_vs_pos",
     "pts_home_avg", "pts_away_avg",
     "ast_home_avg", "ast_away_avg",
     "reb_home_avg", "reb_away_avg",
@@ -47,13 +49,16 @@ def _build_player_cache() -> dict:
         r = requests.get(f"{ESPN_BASE}/teams/{tid}/roster", timeout=10)
         if r.status_code == 200:
             for p in r.json().get("athletes", []):
-                key = p["displayName"].lower()
+                key      = p["displayName"].lower()
+                pos_abbr = p.get("position", {}).get("abbreviation", "G")
                 cache[key] = {
                     "id":        p["id"],
                     "full_name": p["displayName"],
                     "team":      tname,
                     "team_abbr": tabbr,
+                    "position":  pos_abbr,
                 }
+                dbp.register_wnba_player(p["id"], p["displayName"], pos_abbr)
     _player_cache = cache
     return cache
 
@@ -203,17 +208,20 @@ def _build_features(df: pd.DataFrame) -> pd.DataFrame:
         hist = df.iloc[:i]
         cur  = df.iloc[i]
         rows.append({
-            "pts_l5":      hist["PTS"].tail(5).mean(),
-            "pts_l10":     hist["PTS"].tail(10).mean(),
-            "ast_l5":      hist["AST"].tail(5).mean(),
-            "ast_l10":     hist["AST"].tail(10).mean(),
-            "reb_l5":      hist["REB"].tail(5).mean(),
-            "reb_l10":     hist["REB"].tail(10).mean(),
-            "min_l5":      hist["MIN"].tail(5).mean(),
-            "home":        cur["HOME"],
-            "days_rest":   cur["DAYS_REST"],
-            "opp_def_pts": cur["OPP_DEF_PTS"],
-            "opp_off_pts": cur["OPP_OFF_PTS"],
+            "pts_l5":               hist["PTS"].tail(5).mean(),
+            "pts_l10":              hist["PTS"].tail(10).mean(),
+            "ast_l5":               hist["AST"].tail(5).mean(),
+            "ast_l10":              hist["AST"].tail(10).mean(),
+            "reb_l5":               hist["REB"].tail(5).mean(),
+            "reb_l10":              hist["REB"].tail(10).mean(),
+            "min_l5":               hist["MIN"].tail(5).mean(),
+            "home":                 cur["HOME"],
+            "days_rest":            cur["DAYS_REST"],
+            "opp_def_pts":          cur["OPP_DEF_PTS"],
+            "opp_off_pts":          cur["OPP_OFF_PTS"],
+            "opp_def_pts_vs_pos":   cur["OPP_DEF_PTS_VS_POS"],
+            "opp_def_ast_vs_pos":   cur["OPP_DEF_AST_VS_POS"],
+            "opp_def_reb_vs_pos":   cur["OPP_DEF_REB_VS_POS"],
             **_home_away_avgs(hist),
             "PTS": cur["PTS"],
             "AST": cur["AST"],
@@ -222,19 +230,27 @@ def _build_features(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def _next_features(df: pd.DataFrame, avg_def_pts: float, avg_off_pts: float) -> np.ndarray:
+def _next_features(
+    df: pd.DataFrame,
+    avg_def_pts: float,
+    avg_off_pts: float,
+    avg_pos: dict,
+) -> np.ndarray:
     feats = {
-        "pts_l5":      df["PTS"].tail(5).mean(),
-        "pts_l10":     df["PTS"].tail(10).mean(),
-        "ast_l5":      df["AST"].tail(5).mean(),
-        "ast_l10":     df["AST"].tail(10).mean(),
-        "reb_l5":      df["REB"].tail(5).mean(),
-        "reb_l10":     df["REB"].tail(10).mean(),
-        "min_l5":      df["MIN"].tail(5).mean(),
-        "home":        0.5,
-        "days_rest":   2.0,
-        "opp_def_pts": avg_def_pts,
-        "opp_off_pts": avg_off_pts,
+        "pts_l5":               df["PTS"].tail(5).mean(),
+        "pts_l10":              df["PTS"].tail(10).mean(),
+        "ast_l5":               df["AST"].tail(5).mean(),
+        "ast_l10":              df["AST"].tail(10).mean(),
+        "reb_l5":               df["REB"].tail(5).mean(),
+        "reb_l10":              df["REB"].tail(10).mean(),
+        "min_l5":               df["MIN"].tail(5).mean(),
+        "home":                 0.5,
+        "days_rest":            2.0,
+        "opp_def_pts":          avg_def_pts,
+        "opp_off_pts":          avg_off_pts,
+        "opp_def_pts_vs_pos":   avg_pos["pts"],
+        "opp_def_ast_vs_pos":   avg_pos["ast"],
+        "opp_def_reb_vs_pos":   avg_pos["reb"],
         **_home_away_avgs(df),
     }
     return np.array([[feats[c] for c in FEATURE_COLS]])
@@ -260,15 +276,26 @@ def predict(player_name: str) -> dict:
     avg_def_pts = float(np.mean([v["def_pts"] for v in team_stats.values()])) if team_stats else 80.0
     avg_off_pts = float(np.mean([v["off_pts"] for v in team_stats.values()])) if team_stats else 80.0
 
-    df["OPP_DEF_PTS"]  = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("def_pts",  avg_def_pts))
-    df["OPP_OFF_PTS"]  = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("off_pts",  avg_off_pts))
-    df["OPP_OFF_RANK"] = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("off_rank"))
-    df["OPP_DEF_RANK"] = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("def_rank"))
+    # Positional defense: pts/ast/reb each team allows to this player's position
+    player_pos = dbp.get_wnba_player_pos(player["full_name"])
+    pos_def    = dbp.fetch_wnba_def_by_pos(_current_wnba_season())
+    avg_pos: dict = {}
+    for stat in ("pts", "ast", "reb"):
+        vals = [pos_def[a][f"{player_pos}_{stat}"] for a in pos_def if pos_def.get(a, {}).get(f"{player_pos}_{stat}", 0) > 0]
+        avg_pos[stat] = float(np.mean(vals)) if vals else avg_def_pts
+
+    df["OPP_DEF_PTS"]        = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("def_pts",  avg_def_pts))
+    df["OPP_OFF_PTS"]        = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("off_pts",  avg_off_pts))
+    df["OPP_OFF_RANK"]       = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("off_rank"))
+    df["OPP_DEF_RANK"]       = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("def_rank"))
+    df["OPP_DEF_PTS_VS_POS"] = df["MATCHUP"].apply(lambda x: dbp.get_def_vs_pos(x, player_pos, "pts", pos_def, avg_pos["pts"]))
+    df["OPP_DEF_AST_VS_POS"] = df["MATCHUP"].apply(lambda x: dbp.get_def_vs_pos(x, player_pos, "ast", pos_def, avg_pos["ast"]))
+    df["OPP_DEF_REB_VS_POS"] = df["MATCHUP"].apply(lambda x: dbp.get_def_vs_pos(x, player_pos, "reb", pos_def, avg_pos["reb"]))
     # OPP_NAME and OPP_LOGO already populated per-row from ESPN opponent object
 
     feature_df = _build_features(df)
     X          = feature_df[FEATURE_COLS].values
-    X_next     = _next_features(df, avg_def_pts, avg_off_pts)
+    X_next     = _next_features(df, avg_def_pts, avg_off_pts, avg_pos)
     n          = len(X)
     weights    = np.ones(n)
     weights[-10:] = 2.25
