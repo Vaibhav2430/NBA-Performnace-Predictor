@@ -2,27 +2,19 @@ import time
 import requests
 from difflib import get_close_matches
 
-LEAGUE_IDS = {"NBA": 7, "WNBA": 3}
-STAT_MAP   = {"Points": "PTS", "Assists": "AST", "Rebounds": "REB"}
+API_KEY  = "dcda49044b41f09a272ab6857f81d2e9"
+BASE_URL = "https://api.the-odds-api.com/v4"
+
+SPORTS = {"NBA": "basketball_nba", "WNBA": "basketball_wnba"}
+MARKET_MAP = {
+    "player_points":   "PTS",
+    "player_assists":  "AST",
+    "player_rebounds": "REB",
+}
 
 _cache:      dict = {}
 _cache_time: dict = {}
 CACHE_TTL = 1800  # 30 minutes
-
-# Persistent session so DataDome cookies are reused across requests
-_session = requests.Session()
-_session.headers.update({
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Origin": "https://app.prizepicks.com",
-    "Referer": "https://app.prizepicks.com/",
-    "sec-ch-ua": '"Chromium";v="124", "Google Chrome";v="124"',
-    "sec-ch-ua-platform": '"macOS"',
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-site",
-})
 
 
 def _normalize(name: str) -> str:
@@ -30,53 +22,70 @@ def _normalize(name: str) -> str:
 
 
 def fetch_lines(league: str) -> dict:
-    """Fetch and cache standard PrizePicks lines for the given league.
+    """Fetch and cache player prop lines for the given league.
 
-    Returns {display_name: {PTS: float, AST: float, REB: float}}.
+    Returns {player_name: {PTS: float, AST: float, REB: float}}.
     """
     now = time.time()
     key = league.upper()
     if key in _cache and now - _cache_time.get(key, 0) < CACHE_TTL:
         return _cache[key]
 
-    league_id = LEAGUE_IDS.get(key, 7)
+    sport = SPORTS.get(key)
+    if not sport:
+        return {}
+
+    # Get today's events
     try:
-        r = _session.get(
-            "https://api.prizepicks.com/projections",
-            params={
-                "league_id":   league_id,
-                "per_page":    500,
-                "single_stat": "true",
-            },
+        events_resp = requests.get(
+            f"{BASE_URL}/sports/{sport}/events",
+            params={"apiKey": API_KEY},
             timeout=10,
         )
-        r.raise_for_status()
-        data = r.json()
+        events_resp.raise_for_status()
+        events = events_resp.json()
     except Exception:
         return _cache.get(key, {})
 
-    projections = data.get("data", [])
-    included    = data.get("included", [])
-    players     = {x["id"]: x["attributes"] for x in included if x.get("type") == "new_player"}
-
     result: dict = {}
-    for proj in projections:
-        attrs = proj.get("attributes", {})
-        if attrs.get("odds_type") != "standard":
+
+    for event in events:
+        event_id = event.get("id")
+        if not event_id:
             continue
-        our_stat = STAT_MAP.get(attrs.get("stat_type", ""))
-        if not our_stat:
+        try:
+            odds_resp = requests.get(
+                f"{BASE_URL}/sports/{sport}/events/{event_id}/odds",
+                params={
+                    "apiKey":      API_KEY,
+                    "regions":     "us",
+                    "markets":     "player_points,player_assists,player_rebounds",
+                    "bookmakers":  "draftkings",
+                },
+                timeout=10,
+            )
+            if odds_resp.status_code != 200:
+                continue
+            data = odds_resp.json()
+        except Exception:
             continue
-        line = attrs.get("line_score")
-        if line is None:
-            continue
-        pid  = proj["relationships"]["new_player"]["data"]["id"]
-        name = players.get(pid, {}).get("display_name", "")
-        if not name:
-            continue
-        if name not in result:
-            result[name] = {}
-        result[name][our_stat] = float(line)
+
+        for bookmaker in data.get("bookmakers", []):
+            for market in bookmaker.get("markets", []):
+                stat = MARKET_MAP.get(market.get("key", ""))
+                if not stat:
+                    continue
+                seen: set = set()
+                for outcome in market.get("outcomes", []):
+                    if outcome.get("name") != "Over":
+                        continue
+                    player = outcome.get("description", "")
+                    line   = outcome.get("point")
+                    if player and line is not None and player not in seen:
+                        if player not in result:
+                            result[player] = {}
+                        result[player][stat] = float(line)
+                        seen.add(player)
 
     _cache[key]      = result
     _cache_time[key] = now
