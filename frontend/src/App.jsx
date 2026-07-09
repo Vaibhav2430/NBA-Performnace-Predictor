@@ -61,8 +61,7 @@ export default function App() {
     <>
       <header className="header">
         <div className="logo">
-          <div className="logo-icon">🏀</div>
-          Court<span>Cast</span>
+          CourtCast
         </div>
 
         <AccuracyCards league={league} />
@@ -91,8 +90,7 @@ export default function App() {
           <div className="search-section">
             {!hasResults && (
               <div className="search-hero">
-                <h1>Court<span style={{ color: 'var(--orange)' }}>Cast</span></h1>
-                <p>AI projections for points, assists &amp; rebounds — next game.</p>
+                <h1>CourtCast</h1>
               </div>
             )}
             <PlayerSearch onSearch={handleSearch} loading={loading} league={league} />

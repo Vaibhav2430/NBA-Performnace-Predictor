@@ -66,7 +66,7 @@ function PropCard({ stat, p, gameLog, line }) {
 
       {hasLine && (
         <div className="pp-line">
-          <span className="pp-label">PrizePicks</span>
+          <span className="pp-label">DraftKings Line</span>
           {!isPush && (
             <span className={`pp-badge ${isOver ? 'over' : 'under'}`}>
               {isOver ? '▲ OVER' : '▼ UNDER'}

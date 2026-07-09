@@ -6924,8 +6924,12 @@
       "AST": 7.9,
       "REB": 4.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 9.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -6939,8 +6943,10 @@
     "predicted": {
       "AST": 6.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -6956,8 +6962,11 @@
       "PTS": 4.0,
       "REB": 4.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 15.0,
+      "REB": 9.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -6973,8 +6982,11 @@
       "PTS": 22.0,
       "REB": 4.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 11.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -6990,8 +7002,11 @@
       "PTS": 4.2,
       "REB": 5.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 9.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7005,8 +7020,10 @@
     "predicted": {
       "PTS": 25.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 29.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7024,8 +7041,12 @@
       "AST": 4.6,
       "REB": 3.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 12.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7041,8 +7062,11 @@
       "PTS": 20.3,
       "REB": 2.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 23.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7058,8 +7082,11 @@
       "PTS": 16.8,
       "REB": 6.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 12.0,
+      "REB": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7075,8 +7102,11 @@
       "PTS": 10.0,
       "REB": 8.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 14.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7090,8 +7120,10 @@
     "predicted": {
       "PTS": 6.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 13.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7105,8 +7137,10 @@
     "predicted": {
       "PTS": 4.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 7.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7120,8 +7154,10 @@
     "predicted": {
       "PTS": 11.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7135,8 +7171,10 @@
     "predicted": {
       "REB": 3.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7150,8 +7188,10 @@
     "predicted": {
       "REB": 5.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7169,8 +7209,12 @@
       "AST": 7.5,
       "REB": 1.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 9.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7186,8 +7230,11 @@
       "PTS": 2.9,
       "AST": 5.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0,
+      "PTS": 12.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7205,8 +7252,12 @@
       "AST": 2.5,
       "REB": 7.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 21.0,
+      "REB": 9.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7222,8 +7273,11 @@
       "PTS": 8.9,
       "AST": 2.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 1.0,
+      "PTS": 12.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7241,8 +7295,12 @@
       "AST": 2.2,
       "REB": 7.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 5.0,
+      "PTS": 24.0,
+      "REB": 8.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7256,8 +7314,10 @@
     "predicted": {
       "PTS": 11.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 22.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7271,8 +7331,10 @@
     "predicted": {
       "PTS": 11.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7288,8 +7350,11 @@
       "PTS": 7.2,
       "REB": 5.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 4.0,
+      "REB": 12.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7305,8 +7370,11 @@
       "PTS": 5.3,
       "REB": 3.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 14.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7482,6 +7550,313 @@
       "PTS": 17.9,
       "AST": 4.0,
       "REB": 2.7
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Jordin Canada",
+    "player_id": "3142250",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 10.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 7.8,
+      "AST": 7.1,
+      "REB": 3.5
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Natisha Hiedeman",
+    "player_id": "3906753",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 14.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 18.0,
+      "AST": 4.3,
+      "REB": 1.6
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Jade Melbourne",
+    "player_id": "5017726",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 7.5
+    },
+    "predicted": {
+      "PTS": 7.9,
+      "AST": 3.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Rhyne Howard",
+    "player_id": "4398674",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 17.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 15.9,
+      "AST": 3.4,
+      "REB": 3.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Flau'jae Johnson",
+    "player_id": "4698736",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 12.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 4.2,
+      "AST": 3.0,
+      "REB": 6.1
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Allisha Gray",
+    "player_id": "3058901",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 19.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 19.8,
+      "AST": 3.5,
+      "REB": 3.7
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Dominique Malonga",
+    "player_id": "5220150",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "PTS": 15.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 18.0,
+      "REB": 6.3
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Angel Reese",
+    "player_id": "4433402",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "PTS": 14.5,
+      "REB": 11.5
+    },
+    "predicted": {
+      "PTS": 15.1,
+      "REB": 13.5
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Awa Fam",
+    "player_id": "5345325",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 7.8,
+      "REB": 4.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Chelsea Gray",
+    "player_id": "2529122",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 13.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 14.7,
+      "AST": 7.7,
+      "REB": 4.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Jackie Young",
+    "player_id": "4065870",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 18.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 19.5,
+      "AST": 7.4,
+      "REB": 6.5
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Carla Leite",
+    "player_id": "5208982",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 14.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 17.9,
+      "AST": 3.9,
+      "REB": 2.7
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "A'ja Wilson",
+    "player_id": "3149391",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 23.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 26.4,
+      "AST": 2.6,
+      "REB": 10.1
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Bridget Carleton",
+    "player_id": "3906972",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 13.1,
+      "REB": 5.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Megan Gustafson",
+    "player_id": "3934218",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 8.8,
+      "REB": 3.2
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "NaLyssa Smith",
+    "player_id": "4398776",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "PTS": 11.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 11.8,
+      "REB": 6.5
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kelsey Mitchell",
+    "player_id": "3142191",
+    "league": "WNBA",
+    "date": "2026-07-09",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 24.5
+    },
+    "predicted": {
+      "PTS": 27.2,
+      "AST": 2.8
     },
     "actual": {},
     "resolved": false,
