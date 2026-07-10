@@ -32,11 +32,6 @@ function PropCard({ stat, p, gameLog, line }) {
 
   const isHot = p.last5_avg > p.season_avg
 
-  const max      = (p.ceiling * 1.2) || 1
-  const floorPct = Math.min(98, (p.floor      / max) * 100)
-  const predPct  = Math.min(98, (p.prediction / max) * 100)
-  const ceilPct  = Math.min(98, (p.ceiling    / max) * 100)
-
   const hasLine  = line != null
   const isPush   = hasLine && p.prediction === line
   const isOver   = hasLine && p.prediction > line
@@ -80,20 +75,6 @@ function PropCard({ stat, p, gameLog, line }) {
           )}
         </div>
       )}
-
-      {/* Range bar */}
-      <div className="range-track">
-        <div className="range-fill" style={{
-          left: `${floorPct}%`,
-          width: `${ceilPct - floorPct}%`,
-          background: color,
-        }} />
-        <div className="range-pip" style={{ left: `${predPct}%`, background: color }} />
-      </div>
-      <div className="range-ends">
-        <span>Floor {p.floor}</span>
-        <span>Ceiling {p.ceiling}</span>
-      </div>
 
       {/* Hit rate dots — relative to line when available */}
       <div className="hit-row">

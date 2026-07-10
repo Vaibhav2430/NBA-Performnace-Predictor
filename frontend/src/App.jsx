@@ -127,7 +127,6 @@ export default function App() {
                       {data.team_def_rank != null && (
                         <span className={`rank-badge ${rankClass(data.team_def_rank)}`}>DEF #{data.team_def_rank}</span>
                       )}
-                      {' · '}{data.season} · {data.games_used} games analyzed
                     </div>
                   </div>
                 </div>
