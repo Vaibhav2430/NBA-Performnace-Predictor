@@ -4,6 +4,7 @@ import requests
 import numpy as np
 import pandas as pd
 from xgboost import XGBRegressor
+from nba_api.stats.endpoints import leaguedashteamstats
 import defense_by_position as dbp
 
 
@@ -21,7 +22,7 @@ FEATURE_COLS = [
     "ast_l5", "ast_l10",
     "reb_l5", "reb_l10",
     "min_l5", "home", "days_rest",
-    "opp_def_pts", "opp_off_pts",
+    "opp_def_rtg", "opp_pace", "team_pace",
     "opp_def_pts_vs_pos", "opp_def_ast_vs_pos", "opp_def_reb_vs_pos",
     "pts_home_avg", "pts_away_avg",
     "ast_home_avg", "ast_away_avg",
@@ -82,35 +83,43 @@ def find_player(name: str) -> dict | None:
 
 
 def fetch_wnba_team_stats() -> dict:
-    """Returns {team_abbr: {team_name, off_pts, def_pts, off_rank, def_rank}}."""
-    ESPN_WEB_V2 = "https://site.web.api.espn.com/apis/v2/sports/basketball/wnba"
-    r = requests.get(f"{ESPN_WEB_V2}/standings", timeout=10, params={"seasontype": 2})
-    r.raise_for_status()
-    data = r.json()
+    """Returns {team_abbr: {team_name, def_rtg, pace, off_rtg, off_rank, def_rank}}."""
+    season = _current_wnba_season()
+    df = leaguedashteamstats.LeagueDashTeamStats(
+        season=season,
+        league_id_nullable="10",
+        measure_type_detailed_defense="Advanced",
+        per_mode_detailed="PerGame",
+    ).get_data_frames()[0]
 
-    raw: dict = {}
-    for conference in data.get("children", []):
-        for entry in conference.get("standings", {}).get("entries", []):
-            team  = entry.get("team", {})
-            abbr  = team.get("abbreviation", "")
-            name  = team.get("displayName", abbr)
-            stats = {s["name"]: s.get("value") for s in entry.get("stats", [])}
-            off_pts = stats.get("avgPointsFor")
-            def_pts = stats.get("avgPointsAgainst")
-            if abbr and off_pts is not None and def_pts is not None:
-                raw[abbr] = {"team_name": name, "off_pts": float(off_pts), "def_pts": float(def_pts)}
-
-    if not raw:
+    if df.empty:
         return {}
 
-    # Higher off pts = better offense (rank 1); lower def pts allowed = better defense (rank 1)
-    off_sorted = sorted(raw.keys(), key=lambda a: raw[a]["off_pts"], reverse=True)
-    def_sorted = sorted(raw.keys(), key=lambda a: raw[a]["def_pts"])
-    for rank, abbr in enumerate(off_sorted, 1):
-        raw[abbr]["off_rank"] = rank
-    for rank, abbr in enumerate(def_sorted, 1):
-        raw[abbr]["def_rank"] = rank
-    return raw
+    df["off_rank"] = df["OFF_RATING"].rank(ascending=False, method="min").astype(int)
+    df["def_rank"] = df["DEF_RATING"].rank(ascending=True,  method="min").astype(int)
+
+    # nba_api returns full team names; map to abbreviations via ESPN
+    name_to_abbr: dict = {}
+    try:
+        r = requests.get(f"{ESPN_BASE}/teams", timeout=10)
+        for t in r.json()["sports"][0]["leagues"][0]["teams"]:
+            name_to_abbr[t["team"]["displayName"]] = t["team"]["abbreviation"]
+    except Exception:
+        pass
+
+    result: dict = {}
+    for _, row in df.iterrows():
+        name = row["TEAM_NAME"]
+        abbr = name_to_abbr.get(name, name[:3].upper())
+        result[abbr] = {
+            "team_name": name,
+            "def_rtg":   float(row["DEF_RATING"]),
+            "pace":      float(row["PACE"]),
+            "off_rtg":   float(row["OFF_RATING"]),
+            "off_rank":  int(row["off_rank"]),
+            "def_rank":  int(row["def_rank"]),
+        }
+    return result
 
 
 def fetch_game_log(player_id: str, season: str = None) -> pd.DataFrame:
@@ -217,8 +226,9 @@ def _build_features(df: pd.DataFrame) -> pd.DataFrame:
             "min_l5":               hist["MIN"].tail(5).mean(),
             "home":                 cur["HOME"],
             "days_rest":            cur["DAYS_REST"],
-            "opp_def_pts":          cur["OPP_DEF_PTS"],
-            "opp_off_pts":          cur["OPP_OFF_PTS"],
+            "opp_def_rtg":          cur["OPP_DEF_RTG"],
+            "opp_pace":             cur["OPP_PACE"],
+            "team_pace":            cur["TEAM_PACE"],
             "opp_def_pts_vs_pos":   cur["OPP_DEF_PTS_VS_POS"],
             "opp_def_ast_vs_pos":   cur["OPP_DEF_AST_VS_POS"],
             "opp_def_reb_vs_pos":   cur["OPP_DEF_REB_VS_POS"],
@@ -232,9 +242,10 @@ def _build_features(df: pd.DataFrame) -> pd.DataFrame:
 
 def _next_features(
     df: pd.DataFrame,
-    avg_def_pts: float,
-    avg_off_pts: float,
+    avg_def_rtg: float,
+    avg_pace: float,
     avg_pos: dict,
+    team_pace: float,
 ) -> np.ndarray:
     feats = {
         "pts_l5":               df["PTS"].tail(5).mean(),
@@ -246,8 +257,9 @@ def _next_features(
         "min_l5":               df["MIN"].tail(5).mean(),
         "home":                 0.5,
         "days_rest":            2.0,
-        "opp_def_pts":          avg_def_pts,
-        "opp_off_pts":          avg_off_pts,
+        "opp_def_rtg":          avg_def_rtg,
+        "opp_pace":             avg_pace,
+        "team_pace":            team_pace,
         "opp_def_pts_vs_pos":   avg_pos["pts"],
         "opp_def_ast_vs_pos":   avg_pos["ast"],
         "opp_def_reb_vs_pos":   avg_pos["reb"],
@@ -273,8 +285,12 @@ def predict(player_name: str) -> dict:
         raise ValueError(f"Not enough game data for {player['full_name']}.")
 
     team_stats  = fetch_wnba_team_stats()
-    avg_def_pts = float(np.mean([v["def_pts"] for v in team_stats.values()])) if team_stats else 80.0
-    avg_off_pts = float(np.mean([v["off_pts"] for v in team_stats.values()])) if team_stats else 80.0
+    avg_def_rtg = float(np.mean([v["def_rtg"] for v in team_stats.values()])) if team_stats else 100.0
+    avg_pace    = float(np.mean([v["pace"]    for v in team_stats.values()])) if team_stats else 96.0
+
+    player_team_abbr = player.get("team_abbr", "")
+    player_team_info = team_stats.get(player_team_abbr, {})
+    team_pace        = float(player_team_info.get("pace", avg_pace))
 
     # Positional defense: pts/ast/reb each team allows to this player's position
     player_pos = dbp.get_wnba_player_pos(player["full_name"])
@@ -282,10 +298,11 @@ def predict(player_name: str) -> dict:
     avg_pos: dict = {}
     for stat in ("pts", "ast", "reb"):
         vals = [pos_def[a][f"{player_pos}_{stat}"] for a in pos_def if pos_def.get(a, {}).get(f"{player_pos}_{stat}", 0) > 0]
-        avg_pos[stat] = float(np.mean(vals)) if vals else avg_def_pts
+        avg_pos[stat] = float(np.mean(vals)) if vals else 10.0
 
-    df["OPP_DEF_PTS"]        = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("def_pts",  avg_def_pts))
-    df["OPP_OFF_PTS"]        = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("off_pts",  avg_off_pts))
+    df["OPP_DEF_RTG"]        = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("def_rtg", avg_def_rtg))
+    df["OPP_PACE"]           = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("pace",    avg_pace))
+    df["TEAM_PACE"]          = team_pace
     df["OPP_OFF_RANK"]       = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("off_rank"))
     df["OPP_DEF_RANK"]       = df["MATCHUP"].apply(lambda x: team_stats.get(x, {}).get("def_rank"))
     df["OPP_DEF_PTS_VS_POS"] = df["MATCHUP"].apply(lambda x: dbp.get_def_vs_pos(x, player_pos, "pts", pos_def, avg_pos["pts"]))
@@ -295,7 +312,7 @@ def predict(player_name: str) -> dict:
 
     feature_df = _build_features(df)
     X          = feature_df[FEATURE_COLS].values
-    X_next     = _next_features(df, avg_def_pts, avg_off_pts, avg_pos)
+    X_next     = _next_features(df, avg_def_rtg, avg_pace, avg_pos, team_pace)
     n          = len(X)
     weights    = np.ones(n)
     weights[-10:] = 2.25
@@ -341,7 +358,6 @@ def predict(player_name: str) -> dict:
     game_log["MIN"]       = game_log["MIN"].round(0).astype(int)
     game_log = game_log.rename(columns={"MATCHUP": "OPP_ABBR"})
 
-    player_team_info = team_stats.get(player.get("team_abbr", ""), {})
     return {
         "player":        player["full_name"],
         "team":          player["team"],

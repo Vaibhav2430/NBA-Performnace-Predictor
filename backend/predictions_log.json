@@ -3849,8 +3849,11 @@
       "PTS": 18.5,
       "AST": 3.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 19.0,
+      "AST": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -4296,8 +4299,11 @@
       "PTS": 18.5,
       "AST": 3.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 19.0,
+      "AST": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -4993,8 +4999,11 @@
       "PTS": 18.5,
       "AST": 3.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 19.0,
+      "AST": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -6194,8 +6203,10 @@
     "predicted": {
       "PTS": 18.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 19.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -6330,8 +6341,11 @@
       "PTS": 21.1,
       "REB": 4.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 23.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -7983,8 +7997,12 @@
       "AST": 6.4,
       "REB": 4.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0,
+      "PTS": 17.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8000,8 +8018,11 @@
       "PTS": 6.8,
       "AST": 2.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8019,8 +8040,12 @@
       "AST": 1.8,
       "REB": 4.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 12.0,
+      "REB": 8.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8051,8 +8076,10 @@
     "predicted": {
       "PTS": 9.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 16.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8068,8 +8095,11 @@
       "PTS": 14.3,
       "REB": 6.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 2.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8085,8 +8115,11 @@
       "PTS": 4.2,
       "REB": 3.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 0.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8100,8 +8133,10 @@
     "predicted": {
       "PTS": 14.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8119,8 +8154,12 @@
       "AST": 6.9,
       "REB": 5.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0,
+      "PTS": 34.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8138,8 +8177,12 @@
       "AST": 7.9,
       "REB": 3.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 8.0,
+      "PTS": 3.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8157,8 +8200,12 @@
       "AST": 5.0,
       "REB": 9.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 20.0,
+      "REB": 17.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8176,8 +8223,12 @@
       "AST": 3.9,
       "REB": 5.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 1.0,
+      "PTS": 34.0,
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8195,8 +8246,12 @@
       "AST": 2.5,
       "REB": 1.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 13.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8212,8 +8267,11 @@
       "PTS": 13.7,
       "REB": 6.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 18.0,
+      "REB": 8.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8229,8 +8287,11 @@
       "PTS": 8.8,
       "REB": 3.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 20.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8246,8 +8307,11 @@
       "PTS": 4.2,
       "REB": 5.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 12.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8263,8 +8327,11 @@
       "PTS": 4.3,
       "REB": 5.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 3.0,
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8280,8 +8347,11 @@
       "PTS": 4.8,
       "AST": 5.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 8.0,
+      "PTS": 15.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8299,8 +8369,12 @@
       "AST": 4.3,
       "REB": 5.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 9.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8318,8 +8392,12 @@
       "AST": 2.1,
       "REB": 9.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 17.0,
+      "REB": 7.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8337,8 +8415,12 @@
       "AST": 3.7,
       "REB": 10.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 5.0,
+      "PTS": 25.0,
+      "REB": 12.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8356,8 +8438,12 @@
       "AST": 2.4,
       "REB": 9.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 15.0,
+      "REB": 8.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8371,8 +8457,10 @@
     "predicted": {
       "PTS": 13.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 15.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8386,8 +8474,10 @@
     "predicted": {
       "PTS": 17.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 17.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8403,8 +8493,11 @@
       "PTS": 6.0,
       "REB": 2.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 17.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8422,8 +8515,12 @@
       "AST": 6.4,
       "REB": 4.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 23.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8441,8 +8538,12 @@
       "AST": 4.9,
       "REB": 6.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 5.0,
+      "PTS": 25.0,
+      "REB": 8.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8460,8 +8561,12 @@
       "AST": 4.7,
       "REB": 3.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 4.0,
+      "REB": 0.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8479,8 +8584,12 @@
       "AST": 3.8,
       "REB": 9.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 17.0,
+      "REB": 7.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8498,8 +8607,12 @@
       "AST": 2.1,
       "REB": 9.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 15.0,
+      "REB": 12.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8513,8 +8626,10 @@
     "predicted": {
       "PTS": 16.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 12.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8528,8 +8643,10 @@
     "predicted": {
       "PTS": 18.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 16.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8545,8 +8662,11 @@
       "PTS": 20.3,
       "REB": 5.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 19.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8562,8 +8682,11 @@
       "PTS": 19.4,
       "REB": 2.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 22.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8579,8 +8702,11 @@
       "PTS": 15.4,
       "REB": 13.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 18.0,
+      "REB": 11.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8596,8 +8722,11 @@
       "PTS": 13.9,
       "REB": 5.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 9.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8615,8 +8744,12 @@
       "AST": 6.2,
       "REB": 6.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 22.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8634,8 +8767,12 @@
       "AST": 7.4,
       "REB": 3.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 8.0,
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8653,8 +8790,12 @@
       "AST": 8.8,
       "REB": 4.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 11.0,
+      "PTS": 19.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8672,8 +8813,12 @@
       "AST": 3.7,
       "REB": 11.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 32.0,
+      "REB": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8689,8 +8834,11 @@
       "PTS": 23.1,
       "REB": 5.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 22.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -8705,6 +8853,2665 @@
     "predicted": {
       "PTS": 13.1,
       "REB": 4.7
+    },
+    "actual": {
+      "PTS": 16.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Sabrina Ionescu",
+    "player_id": "4066533",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 25.5
+    },
+    "predicted": {
+      "PTS": 18.4
+    },
+    "actual": {
+      "PTS": 25.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Kayla McBride",
+    "player_id": "2529205",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 25.5
+    },
+    "predicted": {
+      "PTS": 21.4
+    },
+    "actual": {
+      "PTS": 25.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Olivia Miles",
+    "player_id": "4433791",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 19.5
+    },
+    "predicted": {
+      "PTS": 14.4
+    },
+    "actual": {
+      "PTS": 23.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Breanna Stewart",
+    "player_id": "2998928",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 18.5
+    },
+    "predicted": {
+      "PTS": 26.8
+    },
+    "actual": {
+      "PTS": 17.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Natasha Howard",
+    "player_id": "2529130",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 16.5
+    },
+    "predicted": {
+      "PTS": 18.8
+    },
+    "actual": {
+      "PTS": 16.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jonquel Jones",
+    "player_id": "2999101",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 13.5
+    },
+    "predicted": {
+      "PTS": 17.7
+    },
+    "actual": {
+      "PTS": 15.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Courtney Williams",
+    "player_id": "2987891",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 12.5
+    },
+    "predicted": {
+      "PTS": 13.3
+    },
+    "actual": {
+      "PTS": 12.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jordin Canada",
+    "player_id": "3142250",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 10.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 11.1,
+      "AST": 7.7,
+      "REB": 3.4
+    },
+    "actual": {
+      "AST": 12.0,
+      "PTS": 10.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Carla Leite",
+    "player_id": "5208982",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 14.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 17.3,
+      "AST": 4.1,
+      "REB": 3.2
+    },
+    "actual": {
+      "AST": 10.0,
+      "PTS": 13.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Rhyne Howard",
+    "player_id": "4398674",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 18.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 20.3,
+      "AST": 1.6,
+      "REB": 5.0
+    },
+    "actual": {
+      "AST": 4.0,
+      "PTS": 10.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Allisha Gray",
+    "player_id": "3058901",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 19.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 19.7,
+      "AST": 2.9,
+      "REB": 2.0
+    },
+    "actual": {
+      "AST": 2.0,
+      "PTS": 20.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Angel Reese",
+    "player_id": "4433402",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 15.5,
+      "REB": 11.5
+    },
+    "predicted": {
+      "PTS": 16.8,
+      "AST": 2.4,
+      "REB": 13.7
+    },
+    "actual": {
+      "AST": 2.0,
+      "PTS": 23.0,
+      "REB": 13.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Bridget Carleton",
+    "player_id": "3906972",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 14.3,
+      "REB": 4.7
+    },
+    "actual": {
+      "PTS": 12.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Kahleah Copper",
+    "player_id": "2998938",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 19.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 23.0,
+      "REB": 6.0
+    },
+    "actual": {
+      "PTS": 9.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Megan Gustafson",
+    "player_id": "3934218",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 12.2,
+      "REB": 3.1
+    },
+    "actual": {
+      "PTS": 17.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Naz Hillmon",
+    "player_id": "4398915",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 9.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 7.0,
+      "REB": 3.6
+    },
+    "actual": {
+      "PTS": 15.0,
+      "REB": 8.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Emily Engstler",
+    "player_id": "4398729",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 8.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 10.0,
+      "REB": 6.7
+    },
+    "actual": {
+      "PTS": 14.0,
+      "REB": 11.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Alyssa Thomas",
+    "player_id": "2529140",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 8.5,
+      "PTS": 14.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 20.2,
+      "AST": 6.2,
+      "REB": 6.5
+    },
+    "actual": {
+      "AST": 1.0,
+      "PTS": 7.0,
+      "REB": 6.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Chelsea Gray",
+    "player_id": "2529122",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 12.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 14.0,
+      "AST": 7.6,
+      "REB": 3.9
+    },
+    "actual": {
+      "AST": 12.0,
+      "PTS": 15.0,
+      "REB": 1.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jackie Young",
+    "player_id": "4065870",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 16.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 21.0,
+      "AST": 8.9,
+      "REB": 4.4
+    },
+    "actual": {
+      "AST": 6.0,
+      "PTS": 8.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "A'ja Wilson",
+    "player_id": "3149391",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 24.5,
+      "REB": 9.5
+    },
+    "predicted": {
+      "PTS": 29.5,
+      "AST": 3.9,
+      "REB": 11.4
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 21.0,
+      "REB": 15.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "NaLyssa Smith",
+    "player_id": "4398776",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 11.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 12.8,
+      "REB": 4.6
+    },
+    "actual": {
+      "PTS": 14.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "DeWanna Bonner",
+    "player_id": "869",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 10.6,
+      "REB": 6.8
+    },
+    "actual": {
+      "PTS": 2.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Valeriane Ayayi",
+    "player_id": "3919496",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 11.4,
+      "REB": 4.1
+    },
+    "actual": {
+      "PTS": 5.0,
+      "REB": 7.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jewell Loyd",
+    "player_id": "2987869",
+    "league": "WNBA",
+    "date": "2026-07-11",
+    "lines": {
+      "PTS": 9.5
+    },
+    "predicted": {
+      "PTS": 5.7
+    },
+    "actual": {
+      "PTS": 9.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Natisha Hiedeman",
+    "player_id": "3906753",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 18.5
+    },
+    "predicted": {
+      "PTS": 18.0,
+      "AST": 3.0
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 31.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Sonia Citron",
+    "player_id": "4433524",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 19.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 15.9,
+      "REB": 4.7
+    },
+    "actual": {
+      "PTS": 19.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Dominique Malonga",
+    "player_id": "5220150",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 14.5,
+      "REB": 9.5
+    },
+    "predicted": {
+      "PTS": 18.2,
+      "REB": 6.7
+    },
+    "actual": {
+      "PTS": 10.0,
+      "REB": 15.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Kiki Iriafen",
+    "player_id": "4898384",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 10.5
+    },
+    "predicted": {
+      "PTS": 14.6,
+      "REB": 9.6
+    },
+    "actual": {
+      "PTS": 12.0,
+      "REB": 13.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Shakira Austin",
+    "player_id": "4398911",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 7.5,
+      "REB": 11.7
+    },
+    "actual": {
+      "PTS": 27.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Flau'jae Johnson",
+    "player_id": "4698736",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 11.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 9.6,
+      "REB": 5.3
+    },
+    "actual": {
+      "PTS": 9.0,
+      "REB": 7.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Awa Fam",
+    "player_id": "5345325",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 5.4,
+      "REB": 5.4
+    },
+    "actual": {
+      "PTS": 5.0,
+      "REB": 9.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jade Melbourne",
+    "player_id": "5017726",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 8.5
+    },
+    "predicted": {
+      "PTS": 6.5
+    },
+    "actual": {
+      "PTS": 9.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Michaela Onyenwere",
+    "player_id": "4282173",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 8.5
+    },
+    "predicted": {
+      "PTS": 16.8
+    },
+    "actual": {
+      "PTS": 0.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Julie Allemand",
+    "player_id": "4001679",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 6.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 6.7,
+      "AST": 8.1,
+      "REB": 4.1
+    },
+    "actual": {
+      "AST": 10.0,
+      "PTS": 4.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Sabrina Ionescu",
+    "player_id": "4066533",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 14.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 18.4,
+      "AST": 5.0,
+      "REB": 5.0
+    },
+    "actual": {
+      "AST": 8.0,
+      "PTS": 28.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Pauline Astier",
+    "player_id": "5345320",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 7.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 9.4,
+      "AST": 2.7,
+      "REB": 5.1
+    },
+    "actual": {
+      "AST": 2.0,
+      "PTS": 14.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Marina Mabrey",
+    "player_id": "3904576",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 18.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 15.5,
+      "AST": 4.8,
+      "REB": 4.4
+    },
+    "actual": {
+      "AST": 5.0,
+      "PTS": 30.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jonquel Jones",
+    "player_id": "2999101",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 19.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 14.3,
+      "REB": 9.5
+    },
+    "actual": {
+      "PTS": 10.0,
+      "REB": 10.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Breanna Stewart",
+    "player_id": "2998928",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 19.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 23.5,
+      "REB": 9.5
+    },
+    "actual": {
+      "PTS": 22.0,
+      "REB": 8.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Maria Conde",
+    "player_id": "3910470",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 10.9,
+      "REB": 4.1
+    },
+    "actual": {
+      "PTS": 15.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Laura Juskaite",
+    "player_id": "5345444",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 11.1,
+      "REB": 2.9
+    },
+    "actual": {
+      "PTS": 18.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Isabelle Harrison",
+    "player_id": "2566453",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 11.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 19.4,
+      "REB": 8.0
+    },
+    "actual": {
+      "PTS": 9.0,
+      "REB": 7.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Marine Johannes",
+    "player_id": "4038379",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 8.5
+    },
+    "predicted": {
+      "PTS": 7.6
+    },
+    "actual": {
+      "PTS": 7.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Nyara Sabally",
+    "player_id": "4398768",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 7.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 12.4,
+      "REB": 4.0
+    },
+    "actual": {
+      "PTS": 13.0,
+      "REB": 7.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Paige Bueckers",
+    "player_id": "4433730",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 22.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 27.5,
+      "AST": 6.9,
+      "REB": 4.6
+    },
+    "actual": {
+      "AST": 11.0,
+      "PTS": 22.0,
+      "REB": 6.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jessica Shepard",
+    "player_id": "3906949",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 16.5,
+      "REB": 13.5
+    },
+    "predicted": {
+      "PTS": 19.0,
+      "AST": 5.3,
+      "REB": 10.5
+    },
+    "actual": {
+      "AST": 5.0,
+      "PTS": 19.0,
+      "REB": 10.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Natasha Cloud",
+    "player_id": "2529137",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 11.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 10.4,
+      "AST": 4.3,
+      "REB": 2.4
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 15.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Courtney Vandersloot",
+    "player_id": "981",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 7.5
+    },
+    "predicted": {
+      "PTS": 6.4,
+      "AST": 2.9
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 9.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Kamilla Cardoso",
+    "player_id": "4433405",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 13.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 16.6,
+      "AST": 2.4,
+      "REB": 7.7
+    },
+    "actual": {
+      "AST": 2.0,
+      "PTS": 12.0,
+      "REB": 13.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Arike Ogunbowale",
+    "player_id": "3904577",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 12.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 13.5,
+      "AST": 5.1,
+      "REB": 2.9
+    },
+    "actual": {
+      "AST": 1.0,
+      "PTS": 17.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Azura Stevens",
+    "player_id": "3142010",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 12.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 15.2,
+      "AST": 1.7,
+      "REB": 8.8
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 18.0,
+      "REB": 13.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Azzi Fudd",
+    "player_id": "4433790",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 16.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 17.2,
+      "AST": 2.2,
+      "REB": 1.9
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 16.0,
+      "REB": 1.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Sydney Taylor",
+    "player_id": "4594786",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 15.5
+    },
+    "predicted": {
+      "PTS": 13.4
+    },
+    "actual": {
+      "PTS": 20.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Awak Kuier",
+    "player_id": "4790266",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 6.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 2.6,
+      "REB": 1.4
+    },
+    "actual": {
+      "PTS": 0.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Chelsea Gray",
+    "player_id": "2529122",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 11.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 10.2,
+      "AST": 7.9,
+      "REB": 3.1
+    },
+    "actual": {
+      "AST": 6.0,
+      "PTS": 9.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jackie Young",
+    "player_id": "4065870",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 16.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 23.3,
+      "AST": 7.0,
+      "REB": 3.0
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 15.0,
+      "REB": 1.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Caitlin Clark",
+    "player_id": "4433403",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 14.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 19.0,
+      "AST": 8.9,
+      "REB": 3.8
+    },
+    "actual": {
+      "AST": 6.0,
+      "PTS": 12.0,
+      "REB": 7.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Aliyah Boston",
+    "player_id": "4432831",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 16.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 18.3,
+      "AST": 3.3,
+      "REB": 9.5
+    },
+    "actual": {
+      "AST": 4.0,
+      "PTS": 19.0,
+      "REB": 11.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "A'ja Wilson",
+    "player_id": "3149391",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 26.5,
+      "REB": 9.5
+    },
+    "predicted": {
+      "PTS": 31.6,
+      "AST": 4.1,
+      "REB": 13.3
+    },
+    "actual": {
+      "AST": 2.0,
+      "PTS": 20.0,
+      "REB": 12.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Kelsey Mitchell",
+    "player_id": "3142191",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 21.5
+    },
+    "predicted": {
+      "PTS": 27.6,
+      "AST": 4.8
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 27.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "NaLyssa Smith",
+    "player_id": "4398776",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 10.1,
+      "REB": 6.0
+    },
+    "actual": {
+      "PTS": 9.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jewell Loyd",
+    "player_id": "2987869",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 8.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 6.3,
+      "REB": 1.4
+    },
+    "actual": {
+      "PTS": 8.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Sophie Cunningham",
+    "player_id": "3907781",
+    "league": "WNBA",
+    "date": "2026-07-12",
+    "lines": {
+      "PTS": 8.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 10.3,
+      "REB": 1.8
+    },
+    "actual": {
+      "PTS": 20.0,
+      "REB": 0.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Jordin Canada",
+    "player_id": "3142250",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 8.5,
+      "PTS": 11.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 10.5,
+      "AST": 7.6,
+      "REB": 3.3
+    },
+    "actual": {
+      "AST": 9.0,
+      "PTS": 16.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Erica Wheeler",
+    "player_id": "2491214",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 9.5
+    },
+    "predicted": {
+      "PTS": 7.1,
+      "AST": 6.7
+    },
+    "actual": {
+      "AST": 4.0,
+      "PTS": 20.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Rhyne Howard",
+    "player_id": "4398674",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 19.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 22.9,
+      "AST": 2.4,
+      "REB": 4.1
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 11.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Nneka Ogwumike",
+    "player_id": "1068",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 17.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 19.7,
+      "AST": 4.0,
+      "REB": 11.7
+    },
+    "actual": {
+      "AST": 5.0,
+      "PTS": 19.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Rae Burrell",
+    "player_id": "4398764",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 14.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 15.8,
+      "AST": 1.7,
+      "REB": 2.3
+    },
+    "actual": {
+      "AST": 4.0,
+      "PTS": 18.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Allisha Gray",
+    "player_id": "3058901",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 20.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 19.8,
+      "REB": 2.5
+    },
+    "actual": {
+      "PTS": 20.0,
+      "REB": 1.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Dearica Hamby",
+    "player_id": "2566106",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 15.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 14.1,
+      "REB": 8.4
+    },
+    "actual": {
+      "PTS": 12.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Naz Hillmon",
+    "player_id": "4398915",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 7.5,
+      "REB": 3.1
+    },
+    "actual": {
+      "PTS": 10.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Ariel Atkins",
+    "player_id": "3146151",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 9.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 4.7,
+      "REB": 2.0
+    },
+    "actual": {
+      "PTS": 13.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Alyssa Thomas",
+    "player_id": "2529140",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 12.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 20.4,
+      "AST": 5.2,
+      "REB": 6.0
+    },
+    "actual": {
+      "AST": 12.0,
+      "PTS": 19.0,
+      "REB": 8.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Olivia Miles",
+    "player_id": "4433791",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 19.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 15.4,
+      "AST": 5.7,
+      "REB": 4.4
+    },
+    "actual": {
+      "AST": 8.0,
+      "PTS": 33.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Courtney Williams",
+    "player_id": "2987891",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 15.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 12.9,
+      "AST": 3.4,
+      "REB": 4.1
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 8.0,
+      "REB": 7.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Kayla McBride",
+    "player_id": "2529205",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 16.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 21.4,
+      "AST": 3.4,
+      "REB": 3.9
+    },
+    "actual": {
+      "AST": 1.0,
+      "PTS": 37.0,
+      "REB": 6.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Natasha Howard",
+    "player_id": "2529130",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 16.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 18.5,
+      "AST": 2.1,
+      "REB": 8.9
+    },
+    "actual": {
+      "AST": 7.0,
+      "PTS": 13.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Nia Coffey",
+    "player_id": "3054590",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 7.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 3.7,
+      "AST": 2.9,
+      "REB": 4.0
+    },
+    "actual": {
+      "AST": 0.0,
+      "PTS": 5.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Kahleah Copper",
+    "player_id": "2998938",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 19.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 18.2,
+      "REB": 6.0
+    },
+    "actual": {
+      "PTS": 26.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Valeriane Ayayi",
+    "player_id": "3919496",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 14.4,
+      "REB": 4.6
+    },
+    "actual": {
+      "PTS": 4.0,
+      "REB": 1.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "DeWanna Bonner",
+    "player_id": "869",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 9.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 5.4,
+      "REB": 3.4
+    },
+    "actual": {
+      "PTS": 17.0,
+      "REB": 9.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Monique Akoa Makani",
+    "player_id": "5274110",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 9.5
+    },
+    "predicted": {
+      "PTS": 11.3
+    },
+    "actual": {
+      "PTS": 17.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Carla Leite",
+    "player_id": "5208982",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 14.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 18.5,
+      "AST": 6.0,
+      "REB": 3.1
+    },
+    "actual": {
+      "AST": 6.0,
+      "PTS": 18.0,
+      "REB": 1.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Bridget Carleton",
+    "player_id": "3906972",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 13.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 11.9,
+      "AST": 1.8,
+      "REB": 3.1
+    },
+    "actual": {
+      "AST": 3.0,
+      "PTS": 12.0,
+      "REB": 3.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Brittney Griner",
+    "player_id": "2490553",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 14.1,
+      "REB": 4.9
+    },
+    "actual": {
+      "PTS": 20.0,
+      "REB": 4.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Megan Gustafson",
+    "player_id": "3934218",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 14.5,
+      "REB": 3.3
+    },
+    "actual": {
+      "PTS": 15.0,
+      "REB": 5.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Olivia Nelson-Ododa",
+    "player_id": "4398966",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 12.6,
+      "REB": 6.8
+    },
+    "actual": {
+      "PTS": 16.0,
+      "REB": 6.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Emily Engstler",
+    "player_id": "4398729",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 8.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 10.5,
+      "REB": 8.4
+    },
+    "actual": {
+      "PTS": 14.0,
+      "REB": 6.0
+    },
+    "resolved": true,
+    "injury_status": null
+  },
+  {
+    "player": "Julie Allemand",
+    "player_id": "4001679",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 7.5,
+      "PTS": 7.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 5.8,
+      "AST": 8.8,
+      "REB": 4.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Marina Mabrey",
+    "player_id": "3904576",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 22.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 19.8,
+      "AST": 4.8,
+      "REB": 2.3
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Sonia Citron",
+    "player_id": "4433524",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 17.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 15.6,
+      "AST": 5.6,
+      "REB": 6.3
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kiki Iriafen",
+    "player_id": "4898384",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 14.5,
+      "REB": 10.5
+    },
+    "predicted": {
+      "PTS": 13.0,
+      "REB": 11.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Shakira Austin",
+    "player_id": "4398911",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 8.3,
+      "REB": 10.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Isabelle Harrison",
+    "player_id": "2566453",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 13.8,
+      "REB": 7.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Nyara Sabally",
+    "player_id": "4398768",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 13.0,
+      "REB": 6.3
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Maria Conde",
+    "player_id": "3910470",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 9.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 13.7,
+      "REB": 3.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Michaela Onyenwere",
+    "player_id": "4282173",
+    "league": "WNBA",
+    "date": "2026-07-13",
+    "lines": {
+      "PTS": 8.5
+    },
+    "predicted": {
+      "PTS": 8.1
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Julie Allemand",
+    "player_id": "4001679",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 7.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 4.4,
+      "AST": 8.4,
+      "REB": 4.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Marina Mabrey",
+    "player_id": "3904576",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 23.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 20.7,
+      "AST": 5.0,
+      "REB": 2.1
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Sonia Citron",
+    "player_id": "4433524",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 18.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 15.1,
+      "AST": 5.6,
+      "REB": 6.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kiki Iriafen",
+    "player_id": "4898384",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 14.5,
+      "REB": 10.5
+    },
+    "predicted": {
+      "PTS": 12.3,
+      "REB": 12.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Shakira Austin",
+    "player_id": "4398911",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 14.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 8.9,
+      "REB": 9.7
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Isabelle Harrison",
+    "player_id": "2566453",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 13.8,
+      "REB": 7.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Nyara Sabally",
+    "player_id": "4398768",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 12.9,
+      "REB": 6.3
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Maria Conde",
+    "player_id": "3910470",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 13.7,
+      "REB": 4.3
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Laura Juskaite",
+    "player_id": "5345444",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 9.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 8.4,
+      "REB": 5.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Michaela Onyenwere",
+    "player_id": "4282173",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 9.5
+    },
+    "predicted": {
+      "PTS": 8.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Natasha Cloud",
+    "player_id": "2529137",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 10.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 13.8,
+      "AST": 3.4,
+      "REB": 3.6
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Courtney Vandersloot",
+    "player_id": "981",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 8.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 7.9,
+      "AST": 3.2,
+      "REB": 1.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Natisha Hiedeman",
+    "player_id": "3906753",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 15.5,
+      "REB": 2.5
+    },
+    "predicted": {
+      "PTS": 22.4,
+      "AST": 2.8,
+      "REB": 2.1
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Jade Melbourne",
+    "player_id": "5017726",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 4.5
+    },
+    "predicted": {
+      "AST": 2.6
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kamilla Cardoso",
+    "player_id": "4433405",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 15.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 13.5,
+      "AST": 1.8,
+      "REB": 8.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Azura Stevens",
+    "player_id": "3142010",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 12.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 15.8,
+      "AST": 2.0,
+      "REB": 4.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Dominique Malonga",
+    "player_id": "5220150",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 16.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 11.6,
+      "REB": 11.2
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Sydney Taylor",
+    "player_id": "4594786",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 15.5
+    },
+    "predicted": {
+      "PTS": 15.4
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Flau'jae Johnson",
+    "player_id": "4698736",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 12.5,
+      "REB": 5.5
+    },
+    "predicted": {
+      "PTS": 18.7,
+      "REB": 7.6
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Awa Fam",
+    "player_id": "5345325",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 11.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 15.5,
+      "REB": 5.5
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Olivia Miles",
+    "player_id": "4433791",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 19.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 20.3,
+      "AST": 4.5,
+      "REB": 4.5
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Courtney Williams",
+    "player_id": "2987891",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 4.5,
+      "PTS": 15.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 11.2,
+      "AST": 4.5,
+      "REB": 4.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Nneka Ogwumike",
+    "player_id": "1068",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 3.5,
+      "PTS": 17.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 19.6,
+      "AST": 4.1,
+      "REB": 11.7
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Rae Burrell",
+    "player_id": "4398764",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 14.5
+    },
+    "predicted": {
+      "PTS": 17.6,
+      "AST": 3.2
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kayla McBride",
+    "player_id": "2529205",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 17.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 23.7,
+      "REB": 4.2
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Natasha Howard",
+    "player_id": "2529130",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 15.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 18.5,
+      "REB": 5.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Dearica Hamby",
+    "player_id": "2566106",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 15.5,
+      "REB": 7.5
+    },
+    "predicted": {
+      "PTS": 17.6,
+      "REB": 9.5
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Ariel Atkins",
+    "player_id": "3146151",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 10.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 10.3,
+      "REB": 2.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Caitlin Clark",
+    "player_id": "4433403",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 15.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 13.8,
+      "AST": 6.9,
+      "REB": 5.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Veronica Burton",
+    "player_id": "4398935",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 12.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 10.2,
+      "AST": 5.4,
+      "REB": 3.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Aliyah Boston",
+    "player_id": "4432831",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 15.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 13.2,
+      "AST": 4.4,
+      "REB": 10.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kelsey Mitchell",
+    "player_id": "3142191",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 20.5
+    },
+    "predicted": {
+      "PTS": 27.8,
+      "AST": 3.7
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Gabby Williams",
+    "player_id": "3142328",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 13.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 8.3,
+      "AST": 2.2,
+      "REB": 2.1
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Janelle Salaun",
+    "player_id": "4790264",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 13.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 14.1,
+      "REB": 5.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kayla Thornton",
+    "player_id": "2529622",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 9.5
+    },
+    "predicted": {
+      "PTS": 7.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Sophie Cunningham",
+    "player_id": "3907781",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "PTS": 7.5
+    },
+    "predicted": {
+      "PTS": 15.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Monique Billings",
+    "player_id": "3142255",
+    "league": "WNBA",
+    "date": "2026-07-14",
+    "lines": {
+      "REB": 4.5
+    },
+    "predicted": {
+      "REB": 3.3
     },
     "actual": {},
     "resolved": false,

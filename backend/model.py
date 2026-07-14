@@ -29,7 +29,7 @@ FEATURE_COLS = [
     "ast_l5", "ast_l10",
     "reb_l5", "reb_l10",
     "min_l5", "home", "days_rest",
-    "opp_def_rtg", "opp_pace",
+    "opp_def_rtg", "opp_pace", "team_pace",
     "opp_def_pts_vs_pos", "opp_def_ast_vs_pos", "opp_def_reb_vs_pos",
     "pts_home_avg", "pts_away_avg",
     "ast_home_avg", "ast_away_avg",
@@ -129,6 +129,7 @@ def _build_features(df: pd.DataFrame) -> pd.DataFrame:
             "days_rest":          cur["DAYS_REST"],
             "opp_def_rtg":        cur["OPP_DEF_RTG"],
             "opp_pace":           cur["OPP_PACE"],
+            "team_pace":          cur["TEAM_PACE"],
             "opp_def_pts_vs_pos": cur["OPP_DEF_PTS_VS_POS"],
             "opp_def_ast_vs_pos": cur["OPP_DEF_AST_VS_POS"],
             "opp_def_reb_vs_pos": cur["OPP_DEF_REB_VS_POS"],
@@ -146,6 +147,7 @@ def _next_features(
     avg_def_rtg: float,
     avg_pace: float,
     avg_pos: dict,
+    team_pace: float,
 ) -> np.ndarray:
     feats = {
         "pts_l5":               df["PTS"].tail(5).mean(),
@@ -159,6 +161,7 @@ def _next_features(
         "days_rest":            2.0,
         "opp_def_rtg":          avg_def_rtg,
         "opp_pace":             avg_pace,
+        "team_pace":            team_pace,
         "opp_def_pts_vs_pos":   avg_pos["pts"],
         "opp_def_ast_vs_pos":   avg_pos["ast"],
         "opp_def_reb_vs_pos":   avg_pos["reb"],
@@ -198,9 +201,12 @@ def predict(player_name: str) -> dict:
         vals = [pos_def[a][f"{player_pos}_{stat}"] for a in pos_def if pos_def[a].get(f"{player_pos}_{stat}", 0) > 0]
         avg_pos[stat] = float(np.mean(vals)) if vals else (10.0 if stat == "pts" else 3.0)
 
+    team_pace = float(player_team_info.get("pace", avg_pace))
+
     df["OPP"]                = df["MATCHUP"].apply(_parse_opponent)
     df["OPP_DEF_RTG"]        = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("def_rtg",  avg_def_rtg))
     df["OPP_PACE"]           = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("pace",     avg_pace))
+    df["TEAM_PACE"]          = team_pace
     df["OPP_OFF_RANK"]       = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("off_rank"))
     df["OPP_DEF_RANK"]       = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("def_rank"))
     df["OPP_NAME"]           = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("team_name", x))
@@ -210,7 +216,7 @@ def predict(player_name: str) -> dict:
 
     feature_df = _build_features(df)
     X = feature_df[FEATURE_COLS].values
-    X_next = _next_features(df, avg_def_rtg, avg_pace, avg_pos)
+    X_next = _next_features(df, avg_def_rtg, avg_pace, avg_pos, team_pace)
 
     n = len(X)
     sample_weights = np.ones(n)
