@@ -1276,10 +1276,8 @@
     "predicted": {
       "PTS": 16.7
     },
-    "actual": {
-      "PTS": 14.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Skylar Diggins",
@@ -1387,10 +1385,8 @@
     "predicted": {
       "PTS": 8.2
     },
-    "actual": {
-      "PTS": 7.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Sarah Ashlee Barker",
@@ -1479,10 +1475,8 @@
     "predicted": {
       "PTS": 21.0
     },
-    "actual": {
-      "PTS": 8.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Rhyne Howard",
@@ -1535,11 +1529,8 @@
       "PTS": 14.2,
       "REB": 11.5
     },
-    "actual": {
-      "PTS": 10.0,
-      "REB": 12.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Veronica Burton",
@@ -1554,11 +1545,8 @@
       "PTS": 13.0,
       "AST": 4.6
     },
-    "actual": {
-      "PTS": 8.0,
-      "AST": 7.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Jordin Canada",
@@ -1590,10 +1578,8 @@
     "predicted": {
       "PTS": 8.5
     },
-    "actual": {
-      "PTS": 14.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Naz Hillmon",
@@ -2385,11 +2371,8 @@
       "PTS": 12.0,
       "REB": 6.0
     },
-    "actual": {
-      "PTS": 28.0,
-      "REB": 9.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Awa Fam",
@@ -2404,11 +2387,8 @@
       "PTS": 8.5,
       "REB": 7.4
     },
-    "actual": {
-      "PTS": 15.0,
-      "REB": 6.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Leonie Fiebich",
@@ -2508,12 +2488,8 @@
       "AST": 6.5,
       "REB": 4.7
     },
-    "actual": {
-      "PTS": 25.0,
-      "AST": 6.0,
-      "REB": 2.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Jackie Young",
@@ -2545,10 +2521,8 @@
     "predicted": {
       "PTS": 12.4
     },
-    "actual": {
-      "PTS": 4.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Azzi Fudd",
@@ -2561,10 +2535,8 @@
     "predicted": {
       "PTS": 16.6
     },
-    "actual": {
-      "PTS": 7.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Jessica Shepard",
@@ -2581,12 +2553,8 @@
       "AST": 7.7,
       "REB": 10.5
     },
-    "actual": {
-      "PTS": 22.0,
-      "REB": 14.0,
-      "AST": 4.0
-    },
-    "resolved": true
+    "actual": {},
+    "resolved": false
   },
   {
     "player": "Chelsea Gray",
@@ -3259,10 +3227,8 @@
     "predicted": {
       "PTS": 14.5
     },
-    "actual": {
-      "PTS": 14.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -3336,10 +3302,8 @@
     "predicted": {
       "PTS": 8.9
     },
-    "actual": {
-      "PTS": 6.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -3370,10 +3334,8 @@
     "predicted": {
       "REB": 9.5
     },
-    "actual": {
-      "REB": 1.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -3389,11 +3351,8 @@
       "PTS": 21.7,
       "REB": 8.8
     },
-    "actual": {
-      "PTS": 15.0,
-      "REB": 4.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4062,11 +4021,8 @@
       "PTS": 26.6,
       "REB": 9.9
     },
-    "actual": {
-      "PTS": 32.0,
-      "REB": 10.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4280,10 +4236,8 @@
     "predicted": {
       "PTS": 21.8
     },
-    "actual": {
-      "PTS": 24.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4299,11 +4253,8 @@
       "PTS": 18.5,
       "AST": 3.5
     },
-    "actual": {
-      "PTS": 19.0,
-      "AST": 1.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4317,10 +4268,8 @@
     "predicted": {
       "PTS": 15.5
     },
-    "actual": {
-      "PTS": 17.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4334,10 +4283,8 @@
     "predicted": {
       "PTS": 15.3
     },
-    "actual": {
-      "PTS": 13.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4351,10 +4298,8 @@
     "predicted": {
       "PTS": 14.9
     },
-    "actual": {
-      "PTS": 14.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4370,11 +4315,8 @@
       "PTS": 8.4,
       "AST": 3.6
     },
-    "actual": {
-      "PTS": 21.0,
-      "AST": 3.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4388,10 +4330,8 @@
     "predicted": {
       "PTS": 6.4
     },
-    "actual": {
-      "PTS": 10.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4405,10 +4345,8 @@
     "predicted": {
       "PTS": 15.3
     },
-    "actual": {
-      "PTS": 4.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4442,10 +4380,8 @@
     "predicted": {
       "PTS": 21.9
     },
-    "actual": {
-      "PTS": 25.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4476,10 +4412,8 @@
     "predicted": {
       "PTS": 15.1
     },
-    "actual": {
-      "PTS": 9.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4493,10 +4427,8 @@
     "predicted": {
       "PTS": 17.7
     },
-    "actual": {
-      "PTS": 4.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4510,10 +4442,8 @@
     "predicted": {
       "PTS": 13.9
     },
-    "actual": {
-      "PTS": 18.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4848,11 +4778,8 @@
       "PTS": 6.2,
       "REB": 7.3
     },
-    "actual": {
-      "PTS": 6.0,
-      "REB": 8.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4866,10 +4793,8 @@
     "predicted": {
       "PTS": 10.6
     },
-    "actual": {
-      "PTS": 17.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4883,10 +4808,8 @@
     "predicted": {
       "PTS": 11.2
     },
-    "actual": {
-      "PTS": 3.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4920,10 +4843,8 @@
     "predicted": {
       "PTS": 4.1
     },
-    "actual": {
-      "PTS": 0.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -4999,11 +4920,8 @@
       "PTS": 18.5,
       "AST": 3.5
     },
-    "actual": {
-      "PTS": 19.0,
-      "AST": 1.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5160,10 +5078,8 @@
     "predicted": {
       "PTS": 17.4
     },
-    "actual": {
-      "PTS": 4.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5177,10 +5093,8 @@
     "predicted": {
       "PTS": 14.9
     },
-    "actual": {
-      "PTS": 9.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5217,10 +5131,8 @@
     "predicted": {
       "PTS": 11.4
     },
-    "actual": {
-      "PTS": 18.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5236,11 +5148,8 @@
       "PTS": 10.8,
       "REB": 6.3
     },
-    "actual": {
-      "PTS": 13.0,
-      "REB": 11.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5297,10 +5206,8 @@
     "predicted": {
       "PTS": 5.7
     },
-    "actual": {
-      "PTS": 3.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5314,10 +5221,8 @@
     "predicted": {
       "PTS": 12.0
     },
-    "actual": {
-      "PTS": 8.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5390,11 +5295,8 @@
       "PTS": 18.3,
       "AST": 4.7
     },
-    "actual": {
-      "PTS": 13.0,
-      "AST": 2.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5433,11 +5335,8 @@
       "PTS": 18.6,
       "AST": 3.3
     },
-    "actual": {
-      "PTS": 11.0,
-      "AST": 3.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5453,11 +5352,8 @@
       "PTS": 15.6,
       "REB": 3.6
     },
-    "actual": {
-      "PTS": 13.0,
-      "REB": 6.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5473,11 +5369,8 @@
       "PTS": 6.2,
       "REB": 7.3
     },
-    "actual": {
-      "PTS": 6.0,
-      "REB": 8.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5511,10 +5404,8 @@
     "predicted": {
       "PTS": 10.6
     },
-    "actual": {
-      "PTS": 17.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5528,10 +5419,8 @@
     "predicted": {
       "PTS": 11.2
     },
-    "actual": {
-      "PTS": 3.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5547,11 +5436,8 @@
       "PTS": 6.8,
       "AST": 2.3
     },
-    "actual": {
-      "PTS": 11.0,
-      "AST": 5.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5586,12 +5472,8 @@
       "AST": 5.7,
       "REB": 3.6
     },
-    "actual": {
-      "PTS": 14.0,
-      "AST": 5.0,
-      "REB": 5.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -5698,11 +5580,8 @@
       "PTS": 26.1,
       "REB": 10.1
     },
-    "actual": {
-      "PTS": 32.0,
-      "REB": 10.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -6288,10 +6167,8 @@
     "predicted": {
       "PTS": 15.2
     },
-    "actual": {
-      "PTS": 2.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -7357,10 +7234,8 @@
     "predicted": {
       "PTS": 11.4
     },
-    "actual": {
-      "PTS": 2.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -7696,12 +7571,8 @@
       "AST": 3.4,
       "REB": 3.9
     },
-    "actual": {
-      "AST": 2.0,
-      "PTS": 19.0,
-      "REB": 4.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -7763,11 +7634,8 @@
       "PTS": 18.0,
       "REB": 6.3
     },
-    "actual": {
-      "PTS": 15.0,
-      "REB": 9.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -7783,11 +7651,8 @@
       "PTS": 15.1,
       "REB": 13.5
     },
-    "actual": {
-      "PTS": 18.0,
-      "REB": 11.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -7825,12 +7690,8 @@
       "AST": 7.7,
       "REB": 4.9
     },
-    "actual": {
-      "AST": 7.0,
-      "PTS": 8.0,
-      "REB": 1.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -7848,12 +7709,8 @@
       "AST": 7.4,
       "REB": 6.5
     },
-    "actual": {
-      "AST": 11.0,
-      "PTS": 19.0,
-      "REB": 4.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -7871,12 +7728,8 @@
       "AST": 3.9,
       "REB": 2.7
     },
-    "actual": {
-      "AST": 5.0,
-      "PTS": 13.0,
-      "REB": 3.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -8474,10 +8327,8 @@
     "predicted": {
       "PTS": 17.1
     },
-    "actual": {
-      "PTS": 17.0
-    },
-    "resolved": true,
+    "actual": {},
+    "resolved": false,
     "injury_status": null
   },
   {
@@ -10728,8 +10579,12 @@
       "AST": 8.8,
       "REB": 4.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 15.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10747,8 +10602,12 @@
       "AST": 4.8,
       "REB": 2.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 8.0,
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10766,8 +10625,12 @@
       "AST": 5.6,
       "REB": 6.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 2.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10783,8 +10646,11 @@
       "PTS": 13.0,
       "REB": 11.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 25.0,
+      "REB": 14.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10800,8 +10666,11 @@
       "PTS": 8.3,
       "REB": 10.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 17.0,
+      "REB": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10817,8 +10686,11 @@
       "PTS": 13.8,
       "REB": 7.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 8.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10834,8 +10706,11 @@
       "PTS": 13.0,
       "REB": 6.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 13.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10851,8 +10726,11 @@
       "PTS": 13.7,
       "REB": 3.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 2.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10866,8 +10744,10 @@
     "predicted": {
       "PTS": 8.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 15.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10885,8 +10765,12 @@
       "AST": 8.4,
       "REB": 4.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 15.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10904,8 +10788,12 @@
       "AST": 5.0,
       "REB": 2.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 8.0,
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10923,8 +10811,12 @@
       "AST": 5.6,
       "REB": 6.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 2.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10940,8 +10832,11 @@
       "PTS": 12.3,
       "REB": 12.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 25.0,
+      "REB": 14.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10957,8 +10852,11 @@
       "PTS": 8.9,
       "REB": 9.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 17.0,
+      "REB": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10974,8 +10872,11 @@
       "PTS": 13.8,
       "REB": 7.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 8.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -10991,8 +10892,11 @@
       "PTS": 12.9,
       "REB": 6.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 13.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11008,8 +10912,11 @@
       "PTS": 13.7,
       "REB": 4.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 2.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11025,8 +10932,11 @@
       "PTS": 8.4,
       "REB": 5.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 7.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11040,8 +10950,10 @@
     "predicted": {
       "PTS": 8.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 15.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11235,8 +11147,12 @@
       "AST": 4.5,
       "REB": 4.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 8.0,
+      "PTS": 33.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11254,8 +11170,12 @@
       "AST": 4.5,
       "REB": 4.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 8.0,
+      "REB": 7.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11307,8 +11227,11 @@
       "PTS": 23.7,
       "REB": 4.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 37.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11324,8 +11247,11 @@
       "PTS": 18.5,
       "REB": 5.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 13.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -11516,5 +11442,208 @@
     "actual": {},
     "resolved": false,
     "injury_status": null
+  },
+  {
+    "player": "Emily Engstler",
+    "player_id": "4398729",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "PTS": 11.5,
+      "REB": 6.5
+    },
+    "predicted": {
+      "PTS": 10.3,
+      "REB": 5.0
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Paige Bueckers",
+    "player_id": "4433730",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 21.5,
+      "REB": 4.5
+    },
+    "predicted": {
+      "PTS": 24.6,
+      "AST": 6.1,
+      "REB": 3.9
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Jessica Shepard",
+    "player_id": "3906949",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 15.5,
+      "REB": 11.5
+    },
+    "predicted": {
+      "PTS": 16.4,
+      "AST": 4.5,
+      "REB": 14.2
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Sabrina Ionescu",
+    "player_id": "4066533",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 16.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 22.3,
+      "AST": 6.4,
+      "REB": 4.2
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Breanna Stewart",
+    "player_id": "2998928",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 19.5,
+      "REB": 8.5
+    },
+    "predicted": {
+      "PTS": 20.8,
+      "AST": 2.2,
+      "REB": 8.6
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Jonquel Jones",
+    "player_id": "2999101",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 14.5,
+      "REB": 9.5
+    },
+    "predicted": {
+      "PTS": 14.8,
+      "AST": 2.2,
+      "REB": 10.1
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Azzi Fudd",
+    "player_id": "4433790",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 14.5
+    },
+    "predicted": {
+      "PTS": 16.3,
+      "AST": 2.2
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Kelsey Mitchell",
+    "player_id": "3142191",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 20.5
+    },
+    "predicted": {
+      "PTS": 27.8,
+      "AST": 3.6
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Aliyah Boston",
+    "player_id": "4432831",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 2.5,
+      "PTS": 15.5,
+      "REB": 9.5
+    },
+    "predicted": {
+      "PTS": 13.2,
+      "AST": 4.4,
+      "REB": 10.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Veronica Burton",
+    "player_id": "4398935",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 5.5,
+      "PTS": 11.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 10.9,
+      "AST": 5.2,
+      "REB": 3.7
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": null
+  },
+  {
+    "player": "Caitlin Clark",
+    "player_id": "4433403",
+    "league": "WNBA",
+    "date": "2026-07-15",
+    "lines": {
+      "AST": 6.5,
+      "PTS": 15.5,
+      "REB": 3.5
+    },
+    "predicted": {
+      "PTS": 13.8,
+      "AST": 6.9,
+      "REB": 5.8
+    },
+    "actual": {},
+    "resolved": false,
+    "injury_status": "Day-To-Day"
   }
 ]

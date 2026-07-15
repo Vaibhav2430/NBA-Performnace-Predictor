@@ -186,22 +186,15 @@ def _resolve_all():
                 continue
 
             pred_date = pd.Timestamp(entry["date"])
-            future = df[df["GAME_DATE"] >= pred_date]
-            if future.empty:
+            same_day = df[df["GAME_DATE"].dt.date == pred_date.date()]
+            if same_day.empty:
                 continue
 
-            game = future.iloc[0]
+            game = same_day.iloc[0]
 
-            # If player was on the injury report and the first game after the
-            # predicted date is on a DIFFERENT date, they DNP'd — exclude.
+            # Exclude if player barely played (injury / DNP-illness)
             inj_status = entry.get("injury_status")
             if inj_status:
-                game_date = game["GAME_DATE"]
-                if hasattr(game_date, "date") and game_date.date() > pred_date.date():
-                    tracker.mark_excluded(entry)
-                    changed = True
-                    continue
-                # Also exclude if they barely played (left early due to injury)
                 try:
                     raw_min = game["MIN"]
                     min_played = float(str(raw_min).split(":")[0]) if ":" in str(raw_min) else float(raw_min)
