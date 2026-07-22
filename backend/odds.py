@@ -1,6 +1,8 @@
 import time
 import requests
+from datetime import datetime
 from difflib import get_close_matches
+from zoneinfo import ZoneInfo
 
 API_KEY  = "dcda49044b41f09a272ab6857f81d2e9"
 BASE_URL = "https://api.the-odds-api.com/v4"
@@ -12,9 +14,25 @@ MARKET_MAP = {
     "player_rebounds": "REB",
 }
 
-_cache:      dict = {}
-_cache_time: dict = {}
+# NBA/WNBA schedules are published in US Eastern time; ESPN's game logs
+# date games by that same local "gameday", so game dates must be derived
+# in this zone rather than the server's own local time or UTC.
+GAME_DATE_TZ = ZoneInfo("America/New_York")
+
+_cache:       dict = {}
+_cache_time:  dict = {}
+_game_dates:  dict = {}   # {league: {player_name: "YYYY-MM-DD"}}
 CACHE_TTL = 1800  # 30 minutes
+
+
+def _commence_time_to_game_date(commence_time: str) -> str | None:
+    if not commence_time:
+        return None
+    try:
+        dt = datetime.fromisoformat(commence_time.replace("Z", "+00:00"))
+        return dt.astimezone(GAME_DATE_TZ).date().isoformat()
+    except Exception:
+        return None
 
 
 def _normalize(name: str) -> str:
@@ -47,12 +65,14 @@ def fetch_lines(league: str) -> dict:
     except Exception:
         return _cache.get(key, {})
 
-    result: dict = {}
+    result:     dict = {}
+    game_dates: dict = {}
 
     for event in events:
         event_id = event.get("id")
         if not event_id:
             continue
+        game_date = _commence_time_to_game_date(event.get("commence_time"))
         try:
             odds_resp = requests.get(
                 f"{BASE_URL}/sports/{sport}/events/{event_id}/odds",
@@ -86,10 +106,30 @@ def fetch_lines(league: str) -> dict:
                             result[player] = {}
                         result[player][stat] = float(line)
                         seen.add(player)
+                        if game_date:
+                            game_dates[player] = game_date
 
-    _cache[key]      = result
-    _cache_time[key] = now
+    _cache[key]       = result
+    _cache_time[key]  = now
+    _game_dates[key]  = game_dates
     return result
+
+
+def _resolve_player_key(player_name: str, all_lines: dict) -> str | None:
+    if player_name in all_lines:
+        return player_name
+
+    norm_target = _normalize(player_name)
+    norm_map    = {_normalize(k): k for k in all_lines}
+
+    if norm_target in norm_map:
+        return norm_map[norm_target]
+
+    matches = get_close_matches(norm_target, norm_map.keys(), n=1, cutoff=0.82)
+    if matches:
+        return norm_map[matches[0]]
+
+    return None
 
 
 def get_player_lines(player_name: str, league: str) -> dict:
@@ -98,17 +138,19 @@ def get_player_lines(player_name: str, league: str) -> dict:
     if not all_lines:
         return {}
 
-    if player_name in all_lines:
-        return all_lines[player_name]
+    key = _resolve_player_key(player_name, all_lines)
+    return all_lines[key] if key else {}
 
-    norm_target = _normalize(player_name)
-    norm_map    = {_normalize(k): k for k in all_lines}
 
-    if norm_target in norm_map:
-        return all_lines[norm_map[norm_target]]
+def get_player_game_date(player_name: str, league: str) -> str | None:
+    """Return the scheduled game date ('YYYY-MM-DD', US Eastern) for the
+    player's current prop, or None if unknown."""
+    all_lines = fetch_lines(league)
+    if not all_lines:
+        return None
 
-    matches = get_close_matches(norm_target, norm_map.keys(), n=1, cutoff=0.82)
-    if matches:
-        return all_lines[norm_map[matches[0]]]
+    key = _resolve_player_key(player_name, all_lines)
+    if not key:
+        return None
 
-    return {}
+    return _game_dates.get(league.upper(), {}).get(key)

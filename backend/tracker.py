@@ -20,19 +20,20 @@ def _save(log: list):
         json.dump(log, f, indent=2)
 
 
-def log_prediction(player: str, player_id, league: str, lines: dict, predictions: dict, injury_status: str = None):
+def log_prediction(player: str, player_id, league: str, lines: dict, predictions: dict,
+                    injury_status: str = None, game_date: str = None):
     if not lines:
         return
-    today_str = str(date.today())
+    game_date = game_date or str(date.today())
     log = _load()
-    # Skip duplicate unresolved entry for same player + date
-    if any(e["player"] == player and e["date"] == today_str and not e["resolved"] for e in log):
+    # Skip duplicate unresolved entry for same player + game date
+    if any(e["player"] == player and e["date"] == game_date and not e["resolved"] for e in log):
         return
     entry = {
         "player":         player,
         "player_id":      str(player_id),
         "league":         league,
-        "date":           today_str,
+        "date":           game_date,
         "lines":          {k: float(v) for k, v in lines.items()},
         "predicted":      {k: round(float(predictions[k]["prediction"]), 1)
                            for k in predictions if k in lines},

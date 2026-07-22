@@ -108,7 +108,9 @@ def predict_endpoint(player: str = Query(..., description="Player full name")):
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:
-            tracker.log_prediction(player, p["id"], "NBA", lines, result["predictions"], injury_status=inj_status)
+            game_date = odds.get_player_game_date(player, "NBA")
+            tracker.log_prediction(player, p["id"], "NBA", lines, result["predictions"],
+                                    injury_status=inj_status, game_date=game_date)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -144,7 +146,9 @@ def wnba_predict(player: str = Query(...)):
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:
-            tracker.log_prediction(player, p["id"], "WNBA", lines, result["predictions"], injury_status=inj_status)
+            game_date = odds.get_player_game_date(player, "WNBA")
+            tracker.log_prediction(player, p["id"], "WNBA", lines, result["predictions"],
+                                    injury_status=inj_status, game_date=game_date)
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
@@ -188,22 +192,34 @@ def _resolve_all():
             pred_date = pd.Timestamp(entry["date"])
             same_day = df[df["GAME_DATE"].dt.date == pred_date.date()]
             if same_day.empty:
-                continue
+                # Fallback for entries logged before dates were tied to the
+                # scheduled game (a UTC/Eastern boundary could shift the
+                # logged date by a day) — take the closest game within 1 day.
+                diffs  = (df["GAME_DATE"] - pred_date).abs()
+                within = diffs <= pd.Timedelta(days=1)
+                if not within.any():
+                    # No game logged anywhere near this date — the player
+                    # didn't play (DNP / rest / injury). Exclude rather than
+                    # leave it pending forever, since there will never be a
+                    # game to resolve it against.
+                    tracker.mark_excluded(entry)
+                    changed = True
+                    continue
+                same_day = df.loc[[diffs[within].idxmin()]]
 
             game = same_day.iloc[0]
 
-            # Exclude if player barely played (injury / DNP-illness)
-            inj_status = entry.get("injury_status")
-            if inj_status:
-                try:
-                    raw_min = game["MIN"]
-                    min_played = float(str(raw_min).split(":")[0]) if ":" in str(raw_min) else float(raw_min)
-                    if min_played < 5:
-                        tracker.mark_excluded(entry)
-                        changed = True
-                        continue
-                except Exception:
-                    pass
+            # Exclude if the player barely played (DNP-illness/injury), even
+            # if no injury status was on record at prediction time.
+            try:
+                raw_min = game["MIN"]
+                min_played = float(str(raw_min).split(":")[0]) if ":" in str(raw_min) else float(raw_min)
+                if min_played < 5:
+                    tracker.mark_excluded(entry)
+                    changed = True
+                    continue
+            except Exception:
+                pass
 
             actual = {
                 stat: float(game[stat])
@@ -231,12 +247,12 @@ def _seed_all(league: str):
     all_lines = odds.fetch_lines(league)
     if not all_lines:
         return
-    today = str(date.today())
     log = tracker.load_log()
-    already_logged = {e["player"] for e in log if e["date"] == today}
+    logged_pairs = {(e["player"], e["date"]) for e in log}
 
     for pp_name, lines in all_lines.items():
-        if pp_name in already_logged:
+        game_date = odds.get_player_game_date(pp_name, league) or str(date.today())
+        if (pp_name, game_date) in logged_pairs:
             continue
         try:
             if league == "NBA":
@@ -254,7 +270,7 @@ def _seed_all(league: str):
             player_name = result["player"]
             p = nba_find_player(player_name) if league == "NBA" else wnba_model.find_player(player_name)
             if p:
-                tracker.log_prediction(player_name, p["id"], league, lines, result["predictions"])
+                tracker.log_prediction(player_name, p["id"], league, lines, result["predictions"], game_date=game_date)
         except Exception:
             continue
 
