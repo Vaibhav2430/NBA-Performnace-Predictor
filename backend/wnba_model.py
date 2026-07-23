@@ -151,6 +151,12 @@ def fetch_game_log(player_id: str, season: str = None) -> pd.DataFrame:
                     continue
                 meta  = events_meta.get(eid, {})
 
+                # ESPN files the All-Star Game under "Regular Season" like any
+                # other game (opponent shows as e.g. "TEAM COLLIER"); the
+                # player's own team is flagged isAllStar in that case.
+                if meta.get("team", {}).get("isAllStar"):
+                    continue
+
                 # Parse date
                 raw_date = meta.get("gameDate", meta.get("date", ""))
                 try:
