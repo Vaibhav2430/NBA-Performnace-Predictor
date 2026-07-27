@@ -78,6 +78,71 @@ def _apply_teammate_boosts(result: dict, league: str) -> None:
     result["teammate_boosts"] = boosts_applied
 
 
+RETURN_WINDOW_DAYS = 5  # how long a returning teammate's dampening effect tapers over
+
+
+def _apply_return_dampening(result: dict, league: str) -> None:
+    """Mutate result['predictions'] in-place to taper down teammates' stats as a
+    recently-returned (previously Out) high-usage player reclaims touches.
+
+    Mirrors _apply_teammate_boosts in reverse: while a star is out, usage shifts
+    to teammates (see the boost above); once they're back that usage reverts, but
+    not instantly, since box scores don't catch up until new games are played.
+    The effect decays linearly to 0 over RETURN_WINDOW_DAYS.
+    """
+    team_abbr = result.get("team") or result.get("team_abbr")
+    if not team_abbr:
+        return
+
+    returned = injuries.get_recently_returned_players(team_abbr, league, RETURN_WINDOW_DAYS)
+    queried_player = (result.get("player") or "").lower()
+    returned = [r for r in returned if r["name"].lower() != queried_player]
+    if not returned:
+        return
+
+    team_ppg = team_context.get_team_ppg(team_abbr, league)
+    dampers_applied = []
+
+    total_pts_damp = 0.0
+    for rp in returned:
+        ppg = team_context.get_player_ppg(rp["name"], league)
+        if ppg is None or ppg < 8:  # skip low-impact players
+            continue
+        denominator = max(team_ppg - ppg, 40)
+        decay = max(0.0, 1 - rp["days_since"] / RETURN_WINDOW_DAYS)
+        damp = (ppg * 0.5) / denominator * decay
+        total_pts_damp += damp
+        dampers_applied.append({
+            "player":            rp["name"],
+            "ppg":               round(ppg, 1),
+            "days_since_return": rp["days_since"],
+            "dampen_pct":        round(damp * 100, 1),
+        })
+
+    if not dampers_applied:
+        return
+
+    total_pts_damp = min(total_pts_damp, 0.25)  # same hard cap as the boost
+    total_ast_damp = total_pts_damp * 0.6
+    total_reb_damp = total_pts_damp * 0.2
+
+    preds = result.get("predictions", {})
+    for stat, multiplier in [("PTS", total_pts_damp), ("AST", total_ast_damp), ("REB", total_reb_damp)]:
+        if stat not in preds or multiplier == 0:
+            continue
+        p = preds[stat]
+        orig = float(p["prediction"])
+        dampened = round(orig * (1 - multiplier), 1)
+        p["prediction"]    = dampened
+        p["season_avg"]    = p.get("season_avg", orig)
+        p["last5_avg"]     = p.get("last5_avg", orig)
+        p["floor"]         = round(float(p.get("floor", orig * 0.7)) * (1 - multiplier), 1)
+        p["ceiling"]       = round(float(p.get("ceiling", orig * 1.3)) * (1 - multiplier * 0.5), 1)
+        p["return_dampen"] = round(multiplier * 100, 1)
+
+    result["return_dampening"] = dampers_applied
+
+
 @asynccontextmanager
 async def lifespan(_app):
     threading.Thread(target=_seed_if_needed, daemon=True).start()
@@ -104,6 +169,7 @@ def predict_endpoint(player: str = Query(..., description="Player full name")):
         injury = injuries.get_player_injury(player, "NBA")
         result["injury"] = injury
         _apply_teammate_boosts(result, "NBA")
+        _apply_return_dampening(result, "NBA")
         p = nba_find_player(player)
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
@@ -142,6 +208,7 @@ def wnba_predict(player: str = Query(...)):
         injury = injuries.get_player_injury(player, "WNBA")
         result["injury"] = injury
         _apply_teammate_boosts(result, "WNBA")
+        _apply_return_dampening(result, "WNBA")
         p = wnba_model.find_player(player)
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"

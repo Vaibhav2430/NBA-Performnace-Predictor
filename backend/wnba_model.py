@@ -57,6 +57,7 @@ def _build_player_cache() -> dict:
                     "full_name": p["displayName"],
                     "team":      tname,
                     "team_abbr": tabbr,
+                    "team_id":   tid,
                     "position":  pos_abbr,
                 }
                 dbp.register_wnba_player(p["id"], p["displayName"], pos_abbr)
@@ -246,13 +247,55 @@ def _build_features(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _next_opponent(team_id: str, last_game_date) -> dict | None:
+    """Look up the next scheduled (not-yet-played) game for this team.
+
+    Returns {"opp_abbr", "home", "days_rest"} or None if the schedule can't
+    be fetched or no upcoming game is found.
+    """
+    try:
+        r = requests.get(f"{ESPN_BASE}/teams/{team_id}/schedule", timeout=10)
+        r.raise_for_status()
+        events = r.json().get("events", [])
+    except Exception:
+        return None
+
+    for event in events:
+        comp = event["competitions"][0]
+        if comp["status"]["type"]["state"] != "pre":
+            continue
+        competitors = comp["competitors"]
+        mine = next((c for c in competitors if c["team"]["id"] == str(team_id)), None)
+        opp  = next((c for c in competitors if c["team"]["id"] != str(team_id)), None)
+        if not mine or not opp:
+            continue
+        try:
+            game_date = pd.to_datetime(event["date"][:10])
+        except Exception:
+            continue
+        days_rest = 2.0
+        if pd.notna(last_game_date):
+            days_rest = float(np.clip((game_date - last_game_date).days, 0, 10))
+        return {
+            "opp_abbr":  opp["team"].get("abbreviation", ""),
+            "home":      1.0 if mine["homeAway"] == "home" else 0.0,
+            "days_rest": days_rest,
+        }
+    return None
+
+
 def _next_features(
     df: pd.DataFrame,
     avg_def_rtg: float,
     avg_pace: float,
     avg_pos: dict,
     team_pace: float,
+    team_stats: dict,
+    player_pos: str,
+    pos_def: dict,
+    next_game: dict | None,
 ) -> np.ndarray:
+    opp_stats = team_stats.get(next_game["opp_abbr"], {}) if next_game else {}
     feats = {
         "pts_l5":               df["PTS"].tail(5).mean(),
         "pts_l10":              df["PTS"].tail(10).mean(),
@@ -261,14 +304,14 @@ def _next_features(
         "reb_l5":               df["REB"].tail(5).mean(),
         "reb_l10":              df["REB"].tail(10).mean(),
         "min_l5":               df["MIN"].tail(5).mean(),
-        "home":                 0.5,
-        "days_rest":            2.0,
-        "opp_def_rtg":          avg_def_rtg,
-        "opp_pace":             avg_pace,
+        "home":                 next_game["home"]      if next_game else 0.5,
+        "days_rest":            next_game["days_rest"] if next_game else 2.0,
+        "opp_def_rtg":          opp_stats.get("def_rtg", avg_def_rtg),
+        "opp_pace":             opp_stats.get("pace",    avg_pace),
         "team_pace":            team_pace,
-        "opp_def_pts_vs_pos":   avg_pos["pts"],
-        "opp_def_ast_vs_pos":   avg_pos["ast"],
-        "opp_def_reb_vs_pos":   avg_pos["reb"],
+        "opp_def_pts_vs_pos":   dbp.get_def_vs_pos(next_game["opp_abbr"], player_pos, "pts", pos_def, avg_pos["pts"]) if next_game else avg_pos["pts"],
+        "opp_def_ast_vs_pos":   dbp.get_def_vs_pos(next_game["opp_abbr"], player_pos, "ast", pos_def, avg_pos["ast"]) if next_game else avg_pos["ast"],
+        "opp_def_reb_vs_pos":   dbp.get_def_vs_pos(next_game["opp_abbr"], player_pos, "reb", pos_def, avg_pos["reb"]) if next_game else avg_pos["reb"],
         **_home_away_avgs(df),
     }
     return np.array([[feats[c] for c in FEATURE_COLS]])
@@ -316,9 +359,12 @@ def predict(player_name: str) -> dict:
     df["OPP_DEF_REB_VS_POS"] = df["MATCHUP"].apply(lambda x: dbp.get_def_vs_pos(x, player_pos, "reb", pos_def, avg_pos["reb"]))
     # OPP_NAME and OPP_LOGO already populated per-row from ESPN opponent object
 
+    next_game  = _next_opponent(player.get("team_id", ""), df["GAME_DATE"].iloc[-1])
+
     feature_df = _build_features(df)
     X          = feature_df[FEATURE_COLS].values
-    X_next     = _next_features(df, avg_def_rtg, avg_pace, avg_pos, team_pace)
+    X_next     = _next_features(df, avg_def_rtg, avg_pace, avg_pos, team_pace,
+                                 team_stats, player_pos, pos_def, next_game)
     n          = len(X)
     weights    = np.ones(n)
     weights[-10:] = 2.25
