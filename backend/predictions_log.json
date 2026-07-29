@@ -1853,7 +1853,8 @@
       "PTS": 0.0,
       "REB": 3.0
     },
-    "resolved": true
+    "resolved": true,
+    "early_exit": true
   },
   {
     "player": "Awa Fam",
@@ -2373,7 +2374,8 @@
       "PTS": 0.0,
       "REB": 3.0
     },
-    "resolved": true
+    "resolved": true,
+    "early_exit": true
   },
   {
     "player": "Flau'jae Johnson",
@@ -14421,8 +14423,12 @@
       "AST": 4.5,
       "REB": 4.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 22.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14440,8 +14446,12 @@
       "AST": 2.4,
       "REB": 9.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 1.0,
+      "PTS": 17.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14457,8 +14467,11 @@
       "PTS": 16.4,
       "REB": 10.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 20.0,
+      "REB": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14474,8 +14487,11 @@
       "PTS": 12.6,
       "REB": 8.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 16.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14491,8 +14507,11 @@
       "PTS": 7.4,
       "REB": 8.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 21.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14506,8 +14525,10 @@
     "predicted": {
       "PTS": 6.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14525,8 +14546,12 @@
       "AST": 6.6,
       "REB": 4.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 8.0,
+      "PTS": 24.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14544,8 +14569,12 @@
       "AST": 2.0,
       "REB": 8.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 5.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14563,8 +14592,12 @@
       "AST": 3.9,
       "REB": 2.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0,
+      "PTS": 25.0,
+      "REB": 8.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14582,8 +14615,12 @@
       "AST": 2.9,
       "REB": 7.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 13.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14601,8 +14638,12 @@
       "AST": 0.6,
       "REB": 3.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 18.0,
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14620,8 +14661,12 @@
       "AST": 2.6,
       "REB": 8.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 15.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14638,8 +14683,9 @@
       "REB": 5.0
     },
     "actual": {},
-    "resolved": false,
-    "injury_status": null
+    "resolved": true,
+    "injury_status": null,
+    "excluded": true
   },
   {
     "player": "Caitlin Clark",
@@ -14656,8 +14702,12 @@
       "AST": 6.5,
       "REB": 2.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 32.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14675,8 +14725,12 @@
       "AST": 4.1,
       "REB": 1.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 33.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14694,9 +14748,14 @@
       "AST": 4.3,
       "REB": 9.7
     },
-    "actual": {},
-    "resolved": false,
-    "injury_status": null
+    "actual": {
+      "AST": 1.0,
+      "PTS": 11.0,
+      "REB": 2.0
+    },
+    "resolved": true,
+    "injury_status": null,
+    "early_exit": true
   },
   {
     "player": "Flau'jae Johnson",
@@ -14713,8 +14772,12 @@
       "AST": 4.2,
       "REB": 6.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 16.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14730,8 +14793,11 @@
       "PTS": 26.3,
       "AST": 2.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 28.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14748,8 +14814,9 @@
       "REB": 8.8
     },
     "actual": {},
-    "resolved": false,
-    "injury_status": null
+    "resolved": true,
+    "injury_status": null,
+    "excluded": true
   },
   {
     "player": "Awa Fam",
@@ -14764,8 +14831,11 @@
       "PTS": 13.8,
       "REB": 8.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 11.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14779,8 +14849,10 @@
     "predicted": {
       "PTS": 7.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 11.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14798,8 +14870,12 @@
       "AST": 5.9,
       "REB": 3.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 25.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14817,8 +14893,12 @@
       "AST": 8.2,
       "REB": 3.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 17.0,
+      "REB": 1.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14836,8 +14916,12 @@
       "AST": 8.7,
       "REB": 1.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 3.0,
+      "PTS": 11.0,
+      "REB": 0.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14855,8 +14939,12 @@
       "AST": 2.1,
       "REB": 7.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 28.0,
+      "REB": 14.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14872,8 +14960,11 @@
       "PTS": 17.5,
       "REB": 3.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 20.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14889,8 +14980,11 @@
       "PTS": 15.0,
       "REB": 5.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 13.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14907,8 +15001,9 @@
       "REB": 8.4
     },
     "actual": {},
-    "resolved": false,
-    "injury_status": null
+    "resolved": true,
+    "injury_status": null,
+    "excluded": true
   },
   {
     "player": "Emily Engstler",
@@ -14923,8 +15018,11 @@
       "PTS": 9.0,
       "REB": 5.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 7.0,
+      "REB": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14941,8 +15039,9 @@
       "AST": 5.6
     },
     "actual": {},
-    "resolved": false,
-    "injury_status": null
+    "resolved": true,
+    "injury_status": null,
+    "excluded": true
   },
   {
     "player": "Sabrina Ionescu",
@@ -14959,8 +15058,12 @@
       "AST": 3.8,
       "REB": 3.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0,
+      "PTS": 27.0,
+      "REB": 7.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14978,8 +15081,12 @@
       "AST": 4.0,
       "REB": 10.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 7.0,
+      "PTS": 29.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -14997,8 +15104,12 @@
       "AST": 2.2,
       "REB": 10.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 9.0,
+      "PTS": 21.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15016,8 +15127,12 @@
       "AST": 2.1,
       "REB": 8.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0,
+      "PTS": 9.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {

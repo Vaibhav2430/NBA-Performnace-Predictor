@@ -6,7 +6,10 @@ from fastapi import FastAPI, HTTPException, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from nba_api.stats.static import players as nba_players
 from nba_api.live.nba.endpoints import scoreboard as live_scoreboard
-from model import predict, find_player as nba_find_player, fetch_game_log as nba_fetch_game_log
+from model import (
+    predict, find_player as nba_find_player, fetch_game_log as nba_fetch_game_log,
+    played_second_half as nba_played_second_half,
+)
 import wnba_model
 import odds
 import tracker
@@ -228,6 +231,32 @@ def wnba_games_today():
     return wnba_model.games_today()
 
 
+def _detect_early_exit(entry: dict, df: pd.DataFrame, game_idx: int, min_played: float | None,
+                        game: pd.Series, player_id) -> bool:
+    """True if the player left this game early with an injury: minutes well
+    below their usual workload (cheap pre-filter, avoids a play-by-play call
+    on every normal game), confirmed via play-by-play that they have no
+    events in the 3rd/4th quarter, and now on the injury report."""
+    if min_played is None:
+        return False
+    prior = df.iloc[:game_idx]
+    recent_avg_min = prior["MIN"].tail(10).mean() if len(prior) >= 3 else None
+    if not (recent_avg_min and min_played < recent_avg_min * 0.6):
+        return False
+
+    if entry["league"] == "NBA":
+        played_2h = nba_played_second_half(game["Game_ID"], player_id)
+    else:
+        played_2h = wnba_model.played_second_half(game["EVENT_ID"], player_id)
+    if played_2h is not False:
+        # True (they were out there after halftime) or None (couldn't
+        # verify) — either way don't assume an early exit.
+        return False
+
+    inj = injuries.get_player_injury(entry["player"], entry["league"])
+    return bool(inj and inj.get("status", "").lower() in ("out", "day-to-day", "doubtful"))
+
+
 def _resolve_all():
     """Fetch actual game results and mark predictions resolved. Runs in background."""
     from datetime import date
@@ -274,10 +303,12 @@ def _resolve_all():
                     continue
                 same_day = df.loc[[diffs[within].idxmin()]]
 
+            game_idx = same_day.index[0]
             game = same_day.iloc[0]
 
             # Exclude if the player barely played (DNP-illness/injury), even
             # if no injury status was on record at prediction time.
+            min_played = None
             try:
                 raw_min = game["MIN"]
                 min_played = float(str(raw_min).split(":")[0]) if ":" in str(raw_min) else float(raw_min)
@@ -286,7 +317,13 @@ def _resolve_all():
                     changed = True
                     continue
             except Exception:
-                pass
+                min_played = None
+
+            # When this fires, compute_stats voids an "over" that hadn't hit
+            # yet instead of grading it a miss — an "under" that already
+            # cleared the line still counts, same as sportsbooks grade it.
+            if _detect_early_exit(entry, df, game_idx, min_played, game, p["id"]):
+                entry["early_exit"] = True
 
             actual = {
                 stat: float(game[stat])

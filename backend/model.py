@@ -2,7 +2,7 @@ import time
 from datetime import date
 import numpy as np
 import pandas as pd
-from nba_api.stats.endpoints import playergamelog, leaguedashteamstats
+from nba_api.stats.endpoints import playergamelog, leaguedashteamstats, playbyplayv3
 from nba_api.stats.static import players as nba_players, teams as nba_teams
 from xgboost import XGBRegressor
 import defense_by_position as dbp
@@ -86,7 +86,7 @@ def fetch_game_log(player_id: int, season: str = CURRENT_SEASON) -> pd.DataFrame
     if df.empty:
         return pd.DataFrame()
 
-    df = df[["GAME_DATE", "MATCHUP", "WL", "MIN", "PTS", "AST", "REB"]].copy()
+    df = df[["GAME_DATE", "MATCHUP", "WL", "MIN", "PTS", "AST", "REB", "Game_ID"]].copy()
     df["GAME_DATE"] = pd.to_datetime(df["GAME_DATE"])
     df = df.sort_values("GAME_DATE").reset_index(drop=True)
     for col in ["PTS", "AST", "REB", "MIN"]:
@@ -94,6 +94,21 @@ def fetch_game_log(player_id: int, season: str = CURRENT_SEASON) -> pd.DataFrame
     df["HOME"] = df["MATCHUP"].apply(lambda x: 0 if "@" in x else 1)
     df["DAYS_REST"] = df["GAME_DATE"].diff().dt.days.fillna(2).clip(0, 10)
     return df
+
+
+def played_second_half(game_id: str, player_id: int) -> bool | None:
+    """True/False if play-by-play shows whether the player has any event in
+    period 3+ of this game; None if play-by-play data isn't available (in
+    which case the caller should not assume anything either way)."""
+    try:
+        time.sleep(0.65)
+        df = playbyplayv3.PlayByPlayV3(game_id=game_id).get_data_frames()[0]
+        sub = df[df["personId"] == player_id]
+        if sub.empty:
+            return None
+        return bool((sub["period"] >= 3).any())
+    except Exception:
+        return None
 
 
 def _home_away_avgs(hist: pd.DataFrame) -> dict:

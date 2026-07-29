@@ -77,6 +77,7 @@ def compute_stats(log: list, league: str = None) -> dict:
     }
 
     for entry in resolved:
+        early_exit = entry.get("early_exit", False)
         for stat in entry.get("lines", {}):
             pred = entry["predicted"].get(stat)
             act  = entry["actual"].get(stat)
@@ -86,6 +87,13 @@ def compute_stats(log: list, league: str = None) -> dict:
             if stat not in by_stat:
                 continue
             if pred == line:  # push — skip; prediction offers no directional signal
+                continue
+            if early_exit and pred > line and act < line:
+                # Player left the game injured before reaching the line —
+                # the "over" never got a fair chance to hit, so void it
+                # rather than count it a miss. An "under" that already
+                # cleared the line is graded normally below (it's already
+                # locked in — more playing time could only push it up).
                 continue
             is_correct = (pred > line) == (float(act) > line)
             total += 1

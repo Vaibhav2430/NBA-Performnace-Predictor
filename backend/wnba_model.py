@@ -191,6 +191,7 @@ def fetch_game_log(player_id: str, season: str = None) -> pd.DataFrame:
                     "PTS":  _num(stats[pts_idx] if pts_idx < len(stats) else 0),
                     "AST":  _num(stats[ast_idx] if ast_idx < len(stats) else 0),
                     "REB":  _num(stats[reb_idx] if reb_idx < len(stats) else 0),
+                    "EVENT_ID": eid,
                 })
 
     if not rows:
@@ -200,6 +201,30 @@ def fetch_game_log(player_id: str, season: str = None) -> pd.DataFrame:
     df = df.dropna(subset=["GAME_DATE"]).sort_values("GAME_DATE").reset_index(drop=True)
     df["DAYS_REST"] = df["GAME_DATE"].diff().dt.days.fillna(2).clip(0, 10)
     return df
+
+
+def played_second_half(event_id: str, player_id: str) -> bool | None:
+    """True/False if ESPN's play-by-play shows whether the player has any
+    event in period 3+ of this game; None if play-by-play data isn't
+    available (in which case the caller should not assume anything either
+    way)."""
+    try:
+        r = requests.get(
+            f"{ESPN_BASE}/summary", params={"event": event_id}, timeout=15,
+        )
+        r.raise_for_status()
+        plays = r.json().get("plays", [])
+        seen = False
+        for pl in plays:
+            ids = [p.get("athlete", {}).get("id") for p in pl.get("participants", [])]
+            if str(player_id) not in ids:
+                continue
+            seen = True
+            if pl.get("period", {}).get("number", 0) >= 3:
+                return True
+        return False if seen else None
+    except Exception:
+        return None
 
 
 def _home_away_avgs(hist: pd.DataFrame) -> dict:
