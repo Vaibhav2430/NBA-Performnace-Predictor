@@ -1,8 +1,14 @@
 import json
 import os
+import threading
 from datetime import date
 
 LOG_FILE = os.path.join(os.path.dirname(__file__), "predictions_log.json")
+
+# Reentrant so a caller can hold `lock` across its own load_log()/save_log()
+# pair (e.g. a read-modify-write spanning several entries) without
+# deadlocking on the nested acquire those calls make internally.
+lock = threading.RLock()
 
 
 def _load() -> list:
@@ -25,32 +31,35 @@ def log_prediction(player: str, player_id, league: str, lines: dict, predictions
     if not lines:
         return
     game_date = game_date or str(date.today())
-    log = _load()
-    # Skip duplicate unresolved entry for same player + game date
-    if any(e["player"] == player and e["date"] == game_date and not e["resolved"] for e in log):
-        return
-    entry = {
-        "player":         player,
-        "player_id":      str(player_id),
-        "league":         league,
-        "date":           game_date,
-        "lines":          {k: float(v) for k, v in lines.items()},
-        "predicted":      {k: round(float(predictions[k]["prediction"]), 1)
-                           for k in predictions if k in lines},
-        "actual":         {},
-        "resolved":       False,
-        "injury_status":  injury_status,
-    }
-    log.append(entry)
-    _save(log)
+    with lock:
+        log = _load()
+        # Skip duplicate unresolved entry for same player + game date
+        if any(e["player"] == player and e["date"] == game_date and not e["resolved"] for e in log):
+            return
+        entry = {
+            "player":         player,
+            "player_id":      str(player_id),
+            "league":         league,
+            "date":           game_date,
+            "lines":          {k: float(v) for k, v in lines.items()},
+            "predicted":      {k: round(float(predictions[k]["prediction"]), 1)
+                               for k in predictions if k in lines},
+            "actual":         {},
+            "resolved":       False,
+            "injury_status":  injury_status,
+        }
+        log.append(entry)
+        _save(log)
 
 
 def load_log() -> list:
-    return _load()
+    with lock:
+        return _load()
 
 
 def save_log(log: list):
-    _save(log)
+    with lock:
+        _save(log)
 
 
 def mark_resolved(entry: dict, actual: dict):

@@ -1,10 +1,14 @@
+import os
 import time
 import requests
 from datetime import datetime
 from difflib import get_close_matches
 from zoneinfo import ZoneInfo
+from dotenv import load_dotenv
 
-API_KEY  = "dcda49044b41f09a272ab6857f81d2e9"
+load_dotenv()
+
+API_KEY = os.environ["ODDS_API_KEY"]
 BASE_URL = "https://api.the-odds-api.com/v4"
 
 SPORTS = {"NBA": "basketball_nba", "WNBA": "basketball_wnba"}

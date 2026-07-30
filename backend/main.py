@@ -1,9 +1,13 @@
 import time
+import logging
 import threading
 import pandas as pd
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Query, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 from nba_api.stats.static import players as nba_players
 from nba_api.live.nba.endpoints import scoreboard as live_scoreboard
 from model import (
@@ -18,6 +22,8 @@ import odds
 import tracker
 import injuries
 import team_context
+
+logger = logging.getLogger(__name__)
 
 def _seed_if_needed():
     """Seed both leagues on startup, but only if we haven't seeded today.
@@ -243,6 +249,10 @@ async def lifespan(_app):
 
 app = FastAPI(title="NBA Stat Predictor API", lifespan=lifespan)
 
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://localhost:3000"],
@@ -253,7 +263,8 @@ app.add_middleware(
 
 
 @app.get("/predict")
-def predict_endpoint(player: str = Query(..., description="Player full name")):
+@limiter.limit("20/minute")
+def predict_endpoint(request: Request, player: str = Query(..., description="Player full name")):
     try:
         result = predict(player)
         lines = odds.get_player_lines(player, "NBA")
@@ -272,12 +283,14 @@ def predict_endpoint(player: str = Query(..., description="Player full name")):
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {e}")
+    except Exception:
+        logger.exception("Prediction failed for player=%r", player)
+        raise HTTPException(status_code=500, detail="Prediction failed")
 
 
 @app.get("/search")
-def search_endpoint(q: str = Query(default="")):
+@limiter.limit("60/minute")
+def search_endpoint(request: Request, q: str = Query(default="")):
     all_players = sorted(p["full_name"] for p in nba_players.get_players() if p["is_active"])
     if not q:
         return all_players[:50]
@@ -287,12 +300,14 @@ def search_endpoint(q: str = Query(default="")):
 
 
 @app.get("/wnba/search")
-def wnba_search(q: str = Query(default="")):
+@limiter.limit("60/minute")
+def wnba_search(request: Request, q: str = Query(default="")):
     return wnba_model.search_players(q)
 
 
 @app.get("/wnba/predict")
-def wnba_predict(player: str = Query(...)):
+@limiter.limit("20/minute")
+def wnba_predict(request: Request, player: str = Query(...)):
     try:
         result = wnba_model.predict(player)
         lines = odds.get_player_lines(player, "WNBA")
@@ -311,12 +326,14 @@ def wnba_predict(player: str = Query(...)):
         return result
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"WNBA prediction failed: {e}")
+    except Exception:
+        logger.exception("WNBA prediction failed for player=%r", player)
+        raise HTTPException(status_code=500, detail="Prediction failed")
 
 
 @app.get("/wnba/games/today")
-def wnba_games_today():
+@limiter.limit("30/minute")
+def wnba_games_today(request: Request):
     return wnba_model.games_today()
 
 
@@ -347,7 +364,18 @@ def _detect_early_exit(entry: dict, df: pd.DataFrame, game_idx: int, min_played:
 
 
 def _resolve_all():
-    """Fetch actual game results and mark predictions resolved. Runs in background."""
+    """Fetch actual game results and mark predictions resolved. Runs in background.
+
+    Holds tracker.lock for the whole pass (not just the load/save) so a
+    log_prediction() call from a concurrent request can't append a new entry
+    that this function's final save_log() would otherwise silently drop.
+    """
+    from datetime import date
+    with tracker.lock:
+        _resolve_all_locked()
+
+
+def _resolve_all_locked():
     from datetime import date
     log = tracker.load_log()
     today = str(date.today())
@@ -430,7 +458,8 @@ def _resolve_all():
 
 
 @app.get("/accuracy")
-def accuracy_endpoint(background_tasks: BackgroundTasks, league: str = Query(default=None)):
+@limiter.limit("30/minute")
+def accuracy_endpoint(request: Request, background_tasks: BackgroundTasks, league: str = Query(default=None)):
     background_tasks.add_task(_resolve_all)
     return tracker.compute_stats(tracker.load_log(), league=league)
 
@@ -469,13 +498,16 @@ def _seed_all(league: str):
 
 
 @app.post("/accuracy/seed")
-def seed_accuracy(background_tasks: BackgroundTasks, league: str = Query(default="WNBA")):
+@limiter.limit("2/minute")
+def seed_accuracy(request: Request, background_tasks: BackgroundTasks, league: str = Query(default="WNBA")):
     background_tasks.add_task(_seed_all, league)
     return {"status": "started", "league": league}
 
 
 @app.get("/team_preview")
+@limiter.limit("30/minute")
 def team_preview(
+    request: Request,
     home: str = Query(...),
     away: str = Query(...),
     league: str = Query(default="NBA"),
@@ -498,12 +530,14 @@ def team_preview(
             }
 
         return {"home": build(home), "away": build(away)}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Team preview failed: {e}")
+    except Exception:
+        logger.exception("Team preview failed for home=%r away=%r league=%r", home, away, league)
+        raise HTTPException(status_code=500, detail="Team preview failed")
 
 
 @app.get("/games/today")
-def games_today():
+@limiter.limit("30/minute")
+def games_today(request: Request):
     try:
         board = live_scoreboard.ScoreBoard()
         data  = board.get_dict()
