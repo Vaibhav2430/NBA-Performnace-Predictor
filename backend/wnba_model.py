@@ -1,5 +1,6 @@
 import time
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 import requests
 import numpy as np
 import pandas as pd
@@ -492,7 +493,10 @@ def predict(player_name: str) -> dict:
 
 def games_today() -> list:
     try:
-        r     = requests.get(f"{ESPN_BASE}/scoreboard", timeout=10)
+        # WNBA schedules run on US Eastern "gamedays"; deriving today's date
+        # from the server's own timezone can be off by a day near midnight ET.
+        today = datetime.now(ZoneInfo("America/New_York")).strftime("%Y%m%d")
+        r     = requests.get(f"{ESPN_BASE}/scoreboard", params={"dates": today}, timeout=10)
         data  = r.json()
         result = []
         for event in data.get("events", []):

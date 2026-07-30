@@ -15150,8 +15150,12 @@
       "AST": 9.3,
       "REB": 3.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 8.0,
+      "PTS": 3.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15169,8 +15173,12 @@
       "AST": 4.8,
       "REB": 4.3
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 6.0,
+      "PTS": 16.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15188,8 +15196,12 @@
       "AST": 8.0,
       "REB": 13.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 5.0,
+      "PTS": 16.0,
+      "REB": 14.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15207,8 +15219,12 @@
       "AST": 5.0,
       "REB": 5.1
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 5.0,
+      "PTS": 9.0,
+      "REB": 5.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15226,8 +15242,12 @@
       "AST": 2.3,
       "REB": 2.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 5.0,
+      "PTS": 24.0,
+      "REB": 6.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15245,8 +15265,12 @@
       "AST": 1.5,
       "REB": 2.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 2.0,
+      "PTS": 25.0,
+      "REB": 0.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15264,8 +15288,12 @@
       "AST": 2.2,
       "REB": 10.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 22.0,
+      "REB": 12.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15279,8 +15307,10 @@
     "predicted": {
       "PTS": 15.7
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 20.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15296,8 +15326,11 @@
       "PTS": 12.2,
       "REB": 4.4
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 2.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15315,8 +15348,12 @@
       "AST": 7.4,
       "REB": 6.0
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 8.0,
+      "PTS": 25.0,
+      "REB": 9.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15334,8 +15371,12 @@
       "AST": 6.2,
       "REB": 3.5
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 5.0,
+      "PTS": 15.0,
+      "REB": 3.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15351,8 +15392,11 @@
       "PTS": 13.4,
       "AST": 1.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 1.0,
+      "PTS": 0.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15370,8 +15414,12 @@
       "AST": 1.5,
       "REB": 2.8
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "AST": 4.0,
+      "PTS": 27.0,
+      "REB": 4.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15388,8 +15436,9 @@
       "REB": 0.6
     },
     "actual": {},
-    "resolved": false,
-    "injury_status": null
+    "resolved": true,
+    "injury_status": null,
+    "excluded": true
   },
   {
     "player": "Janelle Salaun",
@@ -15404,8 +15453,11 @@
       "PTS": 12.0,
       "REB": 5.2
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 13.0,
+      "REB": 2.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15421,8 +15473,11 @@
       "PTS": 7.0,
       "REB": 7.6
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 6.0,
+      "REB": 8.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
@@ -15438,8 +15493,11 @@
       "PTS": 9.0,
       "REB": 7.9
     },
-    "actual": {},
-    "resolved": false,
+    "actual": {
+      "PTS": 17.0,
+      "REB": 10.0
+    },
+    "resolved": true,
     "injury_status": null
   },
   {
