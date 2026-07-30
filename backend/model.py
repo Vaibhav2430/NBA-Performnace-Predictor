@@ -263,8 +263,6 @@ def predict(player_name: str) -> dict:
 
         predictions[stat] = {
             "prediction": round(pred, 1),
-            "floor":      round(max(0.0, pred - std), 1),
-            "ceiling":    round(pred + std, 1),
             "last5_avg":  round(float(df[stat].tail(5).mean()), 1),
             "season_avg": round(season_avg, 1),
         }

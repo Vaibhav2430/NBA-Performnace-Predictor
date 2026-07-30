@@ -74,8 +74,6 @@ def _apply_teammate_boosts(result: dict, league: str) -> None:
         p["prediction"]     = boosted
         p["season_avg"]     = p.get("season_avg", orig)   # keep original for display
         p["last5_avg"]      = p.get("last5_avg", orig)
-        p["floor"]          = round(float(p.get("floor", orig * 0.7)) * (1 + multiplier * 0.5), 1)
-        p["ceiling"]        = round(float(p.get("ceiling", orig * 1.3)) * (1 + multiplier), 1)
         p["teammate_boost"] = round(multiplier * 100, 1)
 
     result["teammate_boosts"] = boosts_applied
@@ -139,8 +137,6 @@ def _apply_return_dampening(result: dict, league: str) -> None:
         p["prediction"]    = dampened
         p["season_avg"]    = p.get("season_avg", orig)
         p["last5_avg"]     = p.get("last5_avg", orig)
-        p["floor"]         = round(float(p.get("floor", orig * 0.7)) * (1 - multiplier), 1)
-        p["ceiling"]       = round(float(p.get("ceiling", orig * 1.3)) * (1 - multiplier * 0.5), 1)
         p["return_dampen"] = round(multiplier * 100, 1)
 
     result["return_dampening"] = dampers_applied
