@@ -1,16 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { teamLogoUrl as teamLogo } from '../teamLogo'
 
-const NBA_ESPN_MAP = { GSW: 'gs', SAS: 'sa', NYK: 'ny', NOP: 'no', UTA: 'utah' }
-
-function teamLogo(tricode, isWNBA) {
-  if (!tricode) return null
-  if (isWNBA) return `https://a.espncdn.com/i/teamlogos/wnba/500/${tricode.toLowerCase()}.png`
-  const espn = NBA_ESPN_MAP[tricode] ?? tricode.toLowerCase()
-  return `https://a.espncdn.com/i/teamlogos/nba/500/${espn}.png`
-}
-
-export default function GamesSidebar({ league }) {
+export default function GamesSidebar({ league, selectedGameId, onSelectGame }) {
   const [games, setGames]     = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -57,9 +49,16 @@ export default function GamesSidebar({ league }) {
         const isFinal   = g.statusCode === 3
         const statusCls = isLive ? 'live' : isFinal ? 'final' : 'sched'
         const isWNBA    = league === 'WNBA'
+        const isSelected = g.gameId === selectedGameId
 
         return (
-          <div key={g.gameId} className={`game-card ${statusCls}`}>
+          <div
+            key={g.gameId}
+            className={`game-card ${statusCls} ${isSelected ? 'selected' : ''}`}
+            onClick={() => onSelectGame?.(g)}
+            role="button"
+            tabIndex={0}
+          >
             <div className="game-teams">
               {/* Away */}
               <div className="game-team">

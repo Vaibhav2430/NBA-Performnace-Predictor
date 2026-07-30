@@ -21,16 +21,16 @@ function msUntilNextFire() {
 }
 
 const STATS = [
-  { key: 'PTS', label: 'Points',   color: '#38bdf8' },
-  { key: 'AST', label: 'Assists',  color: '#22c55e' },
-  { key: 'REB', label: 'Rebounds', color: '#f97316' },
+  { key: 'PTS', label: 'Points',   color: '#17c3ff' },
+  { key: 'AST', label: 'Assists',  color: '#2ecc71' },
+  { key: 'REB', label: 'Rebounds', color: '#ff7a1a' },
 ]
 
 function pctColor(pct) {
   if (pct == null) return 'var(--muted)'
   if (pct >= 60) return 'var(--green)'
   if (pct >= 50) return 'var(--orange)'
-  return '#f87171'
+  return '#ff8a8a'
 }
 
 export default function AccuracyCards({ league }) {

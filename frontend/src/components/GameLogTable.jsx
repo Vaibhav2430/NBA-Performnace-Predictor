@@ -69,15 +69,15 @@ export default function GameLogTable({ gameLog, predictions, league }) {
                 <td className="td-muted" style={{ textAlign: 'center' }}>{row.MIN}</td>
                 <td className="td-pts" style={{ textAlign: 'center' }}>
                   {row.PTS}
-                  {row.PTS > predictions.PTS.prediction && <sup style={{ color: '#22c55e', fontSize: '0.6rem', marginLeft: 2 }}>↑</sup>}
+                  {row.PTS > predictions.PTS.prediction && <sup style={{ color: '#2ecc71', fontSize: '0.6rem', marginLeft: 2 }}>↑</sup>}
                 </td>
                 <td className="td-ast" style={{ textAlign: 'center' }}>
                   {row.AST}
-                  {row.AST > predictions.AST.prediction && <sup style={{ color: '#22c55e', fontSize: '0.6rem', marginLeft: 2 }}>↑</sup>}
+                  {row.AST > predictions.AST.prediction && <sup style={{ color: '#2ecc71', fontSize: '0.6rem', marginLeft: 2 }}>↑</sup>}
                 </td>
                 <td className="td-reb" style={{ textAlign: 'center' }}>
                   {row.REB}
-                  {row.REB > predictions.REB.prediction && <sup style={{ color: '#22c55e', fontSize: '0.6rem', marginLeft: 2 }}>↑</sup>}
+                  {row.REB > predictions.REB.prediction && <sup style={{ color: '#2ecc71', fontSize: '0.6rem', marginLeft: 2 }}>↑</sup>}
                 </td>
               </tr>
             )

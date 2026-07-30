@@ -4,7 +4,7 @@ import requests
 import numpy as np
 import pandas as pd
 from xgboost import XGBRegressor
-from nba_api.stats.endpoints import leaguedashteamstats
+from nba_api.stats.endpoints import leaguedashteamstats, leaguedashplayerstats
 import defense_by_position as dbp
 
 
@@ -121,6 +121,49 @@ def fetch_wnba_team_stats() -> dict:
             "def_rank":  int(row["def_rank"]),
         }
     return result
+
+
+# nba_api's WNBA team abbreviations differ from ESPN's for a few teams
+_NBA_API_TO_ESPN_ABBR = {"GSV": "GS", "LAS": "LA", "LVA": "LV", "NYL": "NY", "WAS": "WSH"}
+
+_ROSTER_TTL = 300  # seconds
+_roster_df_cache: dict = {}  # season -> (timestamp, df)
+
+
+def _get_wnba_player_stats_df(season: str) -> pd.DataFrame:
+    cached = _roster_df_cache.get(season)
+    if cached and time.time() - cached[0] < _ROSTER_TTL:
+        return cached[1]
+    df = leaguedashplayerstats.LeagueDashPlayerStats(
+        season=season,
+        league_id_nullable="10",
+        per_mode_detailed="PerGame",
+    ).get_data_frames()[0]
+    df["ESPN_ABBR"] = df["TEAM_ABBREVIATION"].map(lambda a: _NBA_API_TO_ESPN_ABBR.get(a, a))
+    _roster_df_cache[season] = (time.time(), df)
+    return df
+
+
+def fetch_team_roster_averages(team_abbr: str) -> list[dict]:
+    """Season-average PTS/AST/REB/MIN per player on team_abbr (ESPN abbr), sorted by minutes."""
+    season = _current_wnba_season()
+    df = _get_wnba_player_stats_df(season)
+    if df.empty:
+        return []
+    team_df = df[(df["ESPN_ABBR"] == team_abbr) & (df["GP"] > 0)].sort_values("MIN", ascending=False)
+
+    return [
+        {
+            "id":   int(row["PLAYER_ID"]),
+            "name": row["PLAYER_NAME"],
+            "pts":  round(float(row["PTS"]), 1),
+            "ast":  round(float(row["AST"]), 1),
+            "reb":  round(float(row["REB"]), 1),
+            "min":  round(float(row["MIN"]), 1),
+            "gp":   int(row["GP"]),
+        }
+        for _, row in team_df.iterrows()
+    ]
 
 
 def fetch_game_log(player_id: str, season: str = None) -> pd.DataFrame:

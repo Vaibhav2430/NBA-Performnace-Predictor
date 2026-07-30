@@ -6,21 +6,26 @@ import PlayerSearch from './components/PlayerSearch'
 import PropCards from './components/PropCards'
 import StatChart from './components/StatChart'
 import GameLogTable from './components/GameLogTable'
+import TeamPreview from './components/TeamPreview'
+import { teamLogoUrl as teamLogoUrlFor } from './teamLogo'
 
 export default function App() {
-  const [league, setLeague]   = useState('NBA')   // 'NBA' | 'WNBA'
-  const [data, setData]       = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError]     = useState(null)
+  const [league, setLeague]     = useState('NBA')   // 'NBA' | 'WNBA'
+  const [data, setData]         = useState(null)
+  const [loading, setLoading]   = useState(false)
+  const [error, setError]       = useState(null)
+  const [selectedGame, setSelectedGame] = useState(null)
 
   function switchLeague(l) {
     if (l === league) return
     setLeague(l)
     setData(null)
     setError(null)
+    setSelectedGame(null)
   }
 
   async function handleSearch(playerName) {
+    setSelectedGame(null)
     setLoading(true)
     setError(null)
     setData(null)
@@ -35,17 +40,19 @@ export default function App() {
     }
   }
 
+  function handleSelectGame(game) {
+    setData(null)
+    setError(null)
+    setSelectedGame(prev => (prev?.gameId === game.gameId ? null : game))
+  }
+
   const hasResults = data && !loading
   const isWNBA     = league === 'WNBA'
 
-  const NBA_ESPN_MAP = { GSW: 'gs', SAS: 'sa', NYK: 'ny', NOP: 'no', UTA: 'utah' }
   function teamLogoUrl() {
     if (!data) return null
     const abbr = isWNBA ? data.team_abbr : data.team
-    if (!abbr) return null
-    if (isWNBA) return `https://a.espncdn.com/i/teamlogos/wnba/500/${abbr.toLowerCase()}.png`
-    const espn = NBA_ESPN_MAP[abbr] ?? abbr.toLowerCase()
-    return `https://a.espncdn.com/i/teamlogos/nba/500/${espn}.png`
+    return teamLogoUrlFor(abbr, isWNBA)
   }
 
   function rankClass(rank) {
@@ -84,17 +91,27 @@ export default function App() {
       </header>
 
       <div className="shell">
-        <GamesSidebar league={league} />
+        <GamesSidebar league={league} selectedGameId={selectedGame?.gameId} onSelectGame={handleSelectGame} />
 
         <main className={`main ${hasResults ? '' : 'empty'}`}>
-          <div className="search-section">
-            {!hasResults && (
-              <div className="search-hero">
-                <h1>CourtCast</h1>
-              </div>
+          <div className={`search-section ${selectedGame ? 'wide' : ''}`}>
+            {selectedGame ? (
+              <TeamPreview
+                game={selectedGame}
+                league={league}
+                onClose={() => setSelectedGame(null)}
+              />
+            ) : (
+              <>
+                {!hasResults && (
+                  <div className="search-hero">
+                    <h1>CourtCast</h1>
+                  </div>
+                )}
+                <PlayerSearch onSearch={handleSearch} loading={loading} league={league} />
+                {error && <div className="error">⚠ {error}</div>}
+              </>
             )}
-            <PlayerSearch onSearch={handleSearch} loading={loading} league={league} />
-            {error && <div className="error">⚠ {error}</div>}
           </div>
 
           {loading && (
@@ -112,7 +129,7 @@ export default function App() {
             <div className="results fade-in">
               <div className="player-banner">
                 <div className="player-left">
-                  <div className="player-avi" style={isWNBA ? { background: 'linear-gradient(135deg,#a855f7,#ec4899)' } : {}}>
+                  <div className="player-avi" style={isWNBA ? { background: 'linear-gradient(135deg,#b83bff,#ff2d95)' } : {}}>
                     {teamLogoUrl()
                       ? <img src={teamLogoUrl()} alt={data.team} style={{ width: '85%', height: '85%', objectFit: 'contain' }} />
                       : '🏀'}

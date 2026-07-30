@@ -9,6 +9,9 @@ from nba_api.live.nba.endpoints import scoreboard as live_scoreboard
 from model import (
     predict, find_player as nba_find_player, fetch_game_log as nba_fetch_game_log,
     played_second_half as nba_played_second_half,
+    fetch_team_defense_stats as nba_fetch_team_defense_stats,
+    fetch_team_roster_averages as nba_fetch_team_roster_averages,
+    _prev_nba_season as nba_prev_season,
 )
 import wnba_model
 import odds
@@ -29,12 +32,76 @@ def _seed_if_needed():
     time.sleep(5)  # stagger to avoid simultaneous requests
     _seed_all("NBA")
 
-def _apply_teammate_boosts(result: dict, league: str) -> None:
+MIN_HISTORY_GAMES = 3          # need at least this many missed/normal games to trust history
+HIST_MULT_BOUNDS  = (0.6, 1.6)  # clamp empirical multiplier to +/-40% either way
+
+
+def _combined_log(player_id, league: str) -> pd.DataFrame:
+    """Current + previous season game log for one player, so a player who's
+    only recently returned still has enough missed-game history to compare."""
+    if league == "NBA":
+        cur  = nba_fetch_game_log(player_id)
+        prev = nba_fetch_game_log(player_id, season=nba_prev_season())
+    else:
+        cur  = wnba_model.fetch_game_log(player_id, season=wnba_model._current_wnba_season())
+        prev = wnba_model.fetch_game_log(player_id, season=wnba_model._prev_wnba_season())
+
+    if cur.empty:
+        return prev
+    if prev.empty:
+        return cur
+    return pd.concat([prev, cur], ignore_index=True)
+
+
+def _historical_stat_mults(target_id, op_id, league: str) -> dict | None:
+    """Compare the target player's stat line in games the (currently Out)
+    teammate has actually missed before vs. games that teammate played, over
+    the current + previous season. Returns {"PTS": mult, "AST": mult, "REB": mult}
+    if the teammate has enough missed-game history to trust; None otherwise,
+    so the caller falls back to the fixed ppg-redistribution formula."""
+    try:
+        op_df  = _combined_log(op_id, league)
+        tgt_df = _combined_log(target_id, league)
+        if op_df.empty or tgt_df.empty:
+            return None
+
+        op_dates    = set(op_df["GAME_DATE"].dt.date)
+        tgt_dates   = tgt_df["GAME_DATE"].dt.date
+        missed_mask = ~tgt_dates.isin(op_dates)
+
+        missed = tgt_df[missed_mask]
+        normal = tgt_df[~missed_mask]
+        if len(missed) < MIN_HISTORY_GAMES or len(normal) < MIN_HISTORY_GAMES:
+            return None
+
+        mults = {}
+        for stat in ("PTS", "AST", "REB"):
+            normal_avg = normal[stat].mean()
+            missed_avg = missed[stat].mean()
+            if normal_avg <= 0:
+                continue
+            mult = missed_avg / normal_avg
+            mults[stat] = min(max(mult, HIST_MULT_BOUNDS[0]), HIST_MULT_BOUNDS[1])
+        return mults or None
+    except Exception:
+        return None
+
+
+def _apply_teammate_boosts(result: dict, league: str, target_id=None) -> None:
     """Mutate result['predictions'] in-place to account for Out teammates.
 
-    Formula: each Out teammate's scoring gets 50% redistributed to remaining
-    players. Boost pct = out_ppg * 0.5 / (team_ppg - out_ppg). Capped at 25%.
-    AST gets 60% of the PTS boost; REB gets 20%.
+    Only key rotation players (top 6 on their team in minutes/game) move the
+    prediction at all - a deep bench player being Out shouldn't shift anyone's
+    number.
+
+    For each qualifying Out teammate, prefer an empirically-derived boost:
+    look back at every game that teammate has actually missed before (this
+    season + last) and see how this specific player performed in those exact
+    games vs. games the teammate played - i.e. make the prediction look like
+    what actually happened last time. If the teammate doesn't have enough
+    missed-game history yet (never hurt before), fall back to the fixed
+    ppg-redistribution formula: boost pct = out_ppg * 0.5 / (team_ppg - out_ppg),
+    capped at 25%, with AST getting 60% of the PTS boost and REB 20%.
     """
     team_abbr = result.get("team") or result.get("team_abbr")
     if not team_abbr:
@@ -44,37 +111,63 @@ def _apply_teammate_boosts(result: dict, league: str) -> None:
     if not out_players:
         return
 
+    out_players = [
+        op for op in out_players
+        if team_context.is_top_mpg_player(op["name"], team_abbr, league)
+    ]
+    if not out_players:
+        return
+
     team_ppg = team_context.get_team_ppg(team_abbr, league)
     boosts_applied = []
 
-    total_pts_boost = 0.0
+    stat_mults = {"PTS": 1.0, "AST": 1.0, "REB": 1.0}
+    total_formula_pts_boost = 0.0
+
     for op in out_players:
+        op_player = nba_find_player(op["name"]) if league == "NBA" else wnba_model.find_player(op["name"])
+        hist = _historical_stat_mults(target_id, op_player["id"], league) if (op_player and target_id) else None
+
+        if hist:
+            for stat, mult in hist.items():
+                stat_mults[stat] *= mult
+            boosts_applied.append({
+                "player": op["name"],
+                "source": "historical",
+                **{f"{stat.lower()}_mult": round(mult, 3) for stat, mult in hist.items()},
+            })
+            continue
+
         ppg = team_context.get_player_ppg(op["name"], league)
         if ppg is None or ppg < 8:  # skip low-impact players
             continue
         denominator = max(team_ppg - ppg, 40)  # avoid division edge cases
         boost = (ppg * 0.5) / denominator
-        total_pts_boost += boost
-        boosts_applied.append({"player": op["name"], "ppg": round(ppg, 1), "boost_pct": round(boost * 100, 1)})
+        total_formula_pts_boost += boost
+        boosts_applied.append({
+            "player": op["name"], "source": "formula",
+            "ppg": round(ppg, 1), "boost_pct": round(boost * 100, 1),
+        })
 
     if not boosts_applied:
         return
 
-    total_pts_boost = min(total_pts_boost, 0.25)  # hard cap at 25%
-    total_ast_boost = total_pts_boost * 0.6
-    total_reb_boost = total_pts_boost * 0.2
+    total_formula_pts_boost = min(total_formula_pts_boost, 0.25)  # hard cap at 25%
+    stat_mults["PTS"] *= 1 + total_formula_pts_boost
+    stat_mults["AST"] *= 1 + total_formula_pts_boost * 0.6
+    stat_mults["REB"] *= 1 + total_formula_pts_boost * 0.2
 
     preds = result.get("predictions", {})
-    for stat, multiplier in [("PTS", total_pts_boost), ("AST", total_ast_boost), ("REB", total_reb_boost)]:
-        if stat not in preds or multiplier == 0:
+    for stat, multiplier in stat_mults.items():
+        if stat not in preds or multiplier == 1.0:
             continue
         p = preds[stat]
         orig = float(p["prediction"])
-        boosted = round(orig * (1 + multiplier), 1)
+        boosted = round(orig * multiplier, 1)
         p["prediction"]     = boosted
         p["season_avg"]     = p.get("season_avg", orig)   # keep original for display
         p["last5_avg"]      = p.get("last5_avg", orig)
-        p["teammate_boost"] = round(multiplier * 100, 1)
+        p["teammate_boost"] = round((multiplier - 1) * 100, 1)
 
     result["teammate_boosts"] = boosts_applied
 
@@ -167,9 +260,9 @@ def predict_endpoint(player: str = Query(..., description="Player full name")):
         result["lines"] = lines
         injury = injuries.get_player_injury(player, "NBA")
         result["injury"] = injury
-        _apply_teammate_boosts(result, "NBA")
-        _apply_return_dampening(result, "NBA")
         p = nba_find_player(player)
+        _apply_teammate_boosts(result, "NBA", target_id=p["id"] if p else None)
+        _apply_return_dampening(result, "NBA")
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:
@@ -206,9 +299,9 @@ def wnba_predict(player: str = Query(...)):
         result["lines"] = lines
         injury = injuries.get_player_injury(player, "WNBA")
         result["injury"] = injury
-        _apply_teammate_boosts(result, "WNBA")
-        _apply_return_dampening(result, "WNBA")
         p = wnba_model.find_player(player)
+        _apply_teammate_boosts(result, "WNBA", target_id=p["id"] if p else None)
+        _apply_return_dampening(result, "WNBA")
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:
@@ -379,6 +472,34 @@ def _seed_all(league: str):
 def seed_accuracy(background_tasks: BackgroundTasks, league: str = Query(default="WNBA")):
     background_tasks.add_task(_seed_all, league)
     return {"status": "started", "league": league}
+
+
+@app.get("/team_preview")
+def team_preview(
+    home: str = Query(...),
+    away: str = Query(...),
+    league: str = Query(default="NBA"),
+):
+    is_wnba = league == "WNBA"
+    try:
+        team_stats = wnba_model.fetch_wnba_team_stats() if is_wnba else nba_fetch_team_defense_stats()
+        get_roster = wnba_model.fetch_team_roster_averages if is_wnba else nba_fetch_team_roster_averages
+
+        def build(abbr: str) -> dict:
+            info = team_stats.get(abbr, {})
+            return {
+                "tricode":  abbr,
+                "team_name": info.get("team_name", abbr),
+                "off_rtg":  info.get("off_rtg"),
+                "def_rtg":  info.get("def_rtg"),
+                "off_rank": info.get("off_rank"),
+                "def_rank": info.get("def_rank"),
+                "players":  get_roster(abbr),
+            }
+
+        return {"home": build(home), "away": build(away)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Team preview failed: {e}")
 
 
 @app.get("/games/today")

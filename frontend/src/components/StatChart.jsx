@@ -5,20 +5,20 @@ import {
 } from 'recharts'
 
 const TABS = [
-  { key: 'PTS', label: 'Points',   cls: 'pts', color: '#38bdf8', gradId: 'gPTS' },
-  { key: 'AST', label: 'Assists',  cls: 'ast', color: '#22c55e', gradId: 'gAST' },
-  { key: 'REB', label: 'Rebounds', cls: 'reb', color: '#f97316', gradId: 'gREB' },
+  { key: 'PTS', label: 'Points',   cls: 'pts', color: '#17c3ff', gradId: 'gPTS' },
+  { key: 'AST', label: 'Assists',  cls: 'ast', color: '#2ecc71', gradId: 'gAST' },
+  { key: 'REB', label: 'Rebounds', cls: 'reb', color: '#ff7a1a', gradId: 'gREB' },
 ]
 
 const Tip = ({ active, payload, label, color }) => {
   if (!active || !payload?.length) return null
   return (
     <div style={{
-      background: '#19191f', border: '1px solid #3f3f46',
+      background: '#131316', border: '1px solid #3a3a40',
       borderRadius: 8, padding: '9px 13px', fontSize: '0.8rem',
-      boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.8)',
     }}>
-      <div style={{ color: '#71717a', marginBottom: 6 }}>{label}</div>
+      <div style={{ color: '#8f8f99', marginBottom: 6 }}>{label}</div>
       <div style={{ color, fontWeight: 700, fontSize: '1rem' }}>{payload[0].value}</div>
     </div>
   )
@@ -63,15 +63,15 @@ export default function StatChart({ gameLog, predictions }) {
 
         <ResponsiveContainer width="100%" height={260}>
           <AreaChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1f1f26" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1e" vertical={false} />
             <XAxis
               dataKey="date"
-              tick={{ fill: '#71717a', fontSize: 11 }}
+              tick={{ fill: '#8f8f99', fontSize: 11 }}
               axisLine={false} tickLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
-              tick={{ fill: '#71717a', fontSize: 11 }}
+              tick={{ fill: '#8f8f99', fontSize: 11 }}
               axisLine={false} tickLine={false}
               domain={[0, 'auto']}
             />

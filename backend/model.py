@@ -2,7 +2,7 @@ import time
 from datetime import date
 import numpy as np
 import pandas as pd
-from nba_api.stats.endpoints import playergamelog, leaguedashteamstats, playbyplayv3
+from nba_api.stats.endpoints import playergamelog, leaguedashteamstats, leaguedashplayerstats, playbyplayv3
 from nba_api.stats.static import players as nba_players, teams as nba_teams
 from xgboost import XGBRegressor
 import defense_by_position as dbp
@@ -61,6 +61,45 @@ def fetch_team_defense_stats() -> dict:
         for _, row in df.iterrows()
         if pd.notna(row["TEAM_ABBREVIATION"])
     }
+
+
+_ROSTER_TTL = 300  # seconds
+_roster_cache: dict = {}  # team_abbr -> (timestamp, players)
+
+
+def fetch_team_roster_averages(team_abbr: str) -> list[dict]:
+    """Season-average PTS/AST/REB/MIN per player on team_abbr, sorted by minutes."""
+    cached = _roster_cache.get(team_abbr)
+    if cached and time.time() - cached[0] < _ROSTER_TTL:
+        return cached[1]
+
+    id_map = {t["abbreviation"]: t["id"] for t in nba_teams.get_teams()}
+    team_id = id_map.get(team_abbr)
+    if not team_id:
+        return []
+
+    time.sleep(0.5)
+    df = leaguedashplayerstats.LeagueDashPlayerStats(
+        season=CURRENT_SEASON,
+        per_mode_detailed="PerGame",
+        team_id_nullable=str(team_id),
+    ).get_data_frames()[0]
+    df = df[df["GP"] > 0].sort_values("MIN", ascending=False)
+
+    players = [
+        {
+            "id":   int(row["PLAYER_ID"]),
+            "name": row["PLAYER_NAME"],
+            "pts":  round(float(row["PTS"]), 1),
+            "ast":  round(float(row["AST"]), 1),
+            "reb":  round(float(row["REB"]), 1),
+            "min":  round(float(row["MIN"]), 1),
+            "gp":   int(row["GP"]),
+        }
+        for _, row in df.iterrows()
+    ]
+    _roster_cache[team_abbr] = (time.time(), players)
+    return players
 
 
 def _parse_opponent(matchup: str) -> str:

@@ -1,7 +1,7 @@
 const STATS = [
-  { key: 'PTS', label: 'Points',   cls: 'pts', color: '#38bdf8' },
-  { key: 'AST', label: 'Assists',  cls: 'ast', color: '#22c55e' },
-  { key: 'REB', label: 'Rebounds', cls: 'reb', color: '#f97316' },
+  { key: 'PTS', label: 'Points',   cls: 'pts', color: '#17c3ff' },
+  { key: 'AST', label: 'Assists',  cls: 'ast', color: '#2ecc71' },
+  { key: 'REB', label: 'Rebounds', cls: 'reb', color: '#ff7a1a' },
 ]
 
 export default function PropCards({ predictions, gameLog, lines = {} }) {
