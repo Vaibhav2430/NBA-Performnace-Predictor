@@ -24,11 +24,18 @@ FEATURE_COLS = [
     "reb_l5", "reb_l10",
     "min_l5", "home", "days_rest",
     "opp_def_rtg", "opp_pace", "team_pace",
-    "opp_def_pts_vs_pos", "opp_def_ast_vs_pos", "opp_def_reb_vs_pos",
     "pts_home_avg", "pts_away_avg",
     "ast_home_avg", "ast_away_avg",
     "reb_home_avg", "reb_away_avg",
 ]
+# Positional defense-vs-stat columns: with enough of a player's own games
+# (n >= SMALL_SAMPLE_CUTOFF below), the tree has enough repeated matchups to
+# learn this itself, so it's included as regular features. Below that, a
+# shallow/regularized tree never reliably splits on it (too few rows to
+# learn a real coefficient), so it's left out here and applied instead as an
+# explicit post-prediction multiplier using the league-pooled rate.
+DEF_VS_POS_COLS     = ["opp_def_pts_vs_pos", "opp_def_ast_vs_pos", "opp_def_reb_vs_pos"]
+SMALL_SAMPLE_CUTOFF = 15
 
 ESPN_BASE    = "https://site.api.espn.com/apis/site/v2/sports/basketball/wnba"
 ESPN_WEB     = "https://site.web.api.espn.com/apis/common/v3/sports/basketball/wnba"
@@ -363,6 +370,7 @@ def _next_features(
     player_pos: str,
     pos_def: dict,
     next_game: dict | None,
+    cols: list,
 ) -> np.ndarray:
     opp_stats = team_stats.get(next_game["opp_abbr"], {}) if next_game else {}
     feats = {
@@ -383,7 +391,7 @@ def _next_features(
         "opp_def_reb_vs_pos":   dbp.get_def_vs_pos(next_game["opp_abbr"], player_pos, "reb", pos_def, avg_pos["reb"]) if next_game else avg_pos["reb"],
         **_home_away_avgs(df),
     }
-    return np.array([[feats[c] for c in FEATURE_COLS]])
+    return np.array([[feats[c] for c in cols]])
 
 
 def predict(player_name: str) -> dict:
@@ -430,17 +438,26 @@ def predict(player_name: str) -> dict:
 
     next_game  = _next_opponent(player.get("team_id", ""), df["GAME_DATE"].iloc[-1])
 
-    feature_df = _build_features(df)
-    X          = feature_df[FEATURE_COLS].values
+    feature_df   = _build_features(df)
+    n            = len(feature_df)
+    small_sample = n < SMALL_SAMPLE_CUTOFF
+    # Below the cutoff, a shallow/regularized tree (see max_depth/reg_lambda
+    # below) never reliably splits on def-vs-position — too few rows to learn
+    # a real coefficient — so those columns are dropped from the tree and
+    # applied instead as an explicit post-prediction multiplier further down.
+    # At/above the cutoff, the tree has enough repeated matchups to learn it
+    # itself, so it stays a regular feature and no multiplier is applied.
+    cols = FEATURE_COLS if small_sample else FEATURE_COLS + DEF_VS_POS_COLS
+
+    X          = feature_df[cols].values
     X_next     = _next_features(df, avg_def_rtg, avg_pace, avg_pos, team_pace,
-                                 team_stats, player_pos, pos_def, next_game)
-    n          = len(X)
+                                 team_stats, player_pos, pos_def, next_game, cols)
     weights    = np.ones(n)
-    weights[-10:] = 2.25
+    weights[-10:] = 2.1
 
     # Fewer training rows → fewer trees and shallower depth to prevent overfitting
     n_estimators = max(30, min(150, n * 8))
-    max_depth    = 2 if n < 15 else 3
+    max_depth    = 2 if small_sample else 3
 
     predictions: dict = {}
     for stat in STATS:
@@ -451,12 +468,23 @@ def predict(player_name: str) -> dict:
             learning_rate=0.08,
             subsample=0.8,
             colsample_bytree=0.8,
-            reg_lambda=5.0 if n < 15 else 1.0,
+            reg_lambda=5.0 if small_sample else 1.0,
             random_state=42,
             verbosity=0,
         )
         model.fit(X, y, sample_weight=weights)
-        pred       = max(0.0, float(model.predict(X_next)[0]))
+        pred = max(0.0, float(model.predict(X_next)[0]))
+
+        # Positional defense adjustment, small-sample players only — see note
+        # above. Larger-sample players already got this from the tree itself.
+        if small_sample and next_game:
+            stat_key       = stat.lower()
+            opp_def_vs_pos = dbp.get_def_vs_pos(next_game["opp_abbr"], player_pos, stat_key,
+                                                 pos_def, avg_pos[stat_key])
+            def_factor     = opp_def_vs_pos / avg_pos[stat_key] if avg_pos[stat_key] else 1.0
+            def_factor     = min(1.15, max(0.85, def_factor))
+            pred          *= def_factor
+
         curr_games = df[stat].tail(current_season_n) if current_season_n > 0 else df[stat]
         season_avg = float(curr_games.mean())
         std        = float(curr_games.std())
