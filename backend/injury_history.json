@@ -4,217 +4,374 @@
       "name": "Cheyenne Parker-Tyus",
       "team_abbr": "LV",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "sania feagin": {
       "name": "Sania Feagin",
       "team_abbr": "POR",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "satou sabally": {
       "name": "Satou Sabally",
       "team_abbr": "NY",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "indya nivar": {
       "name": "Indya Nivar",
       "team_abbr": "ATL",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785538569.0624268,
+      "returned_at": 1785706969.69055
     },
     "ezi magbegor": {
       "name": "Ezi Magbegor",
       "team_abbr": "SEA",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785440465.454821,
+      "returned_at": 1785481932.507168
     },
     "kierstan bell": {
       "name": "Kierstan Bell",
       "team_abbr": "LV",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785538569.0624268,
+      "returned_at": 1785706969.69055
     },
     "brittney sykes": {
       "name": "Brittney Sykes",
       "team_abbr": "TOR",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "aliyah boston": {
       "name": "Aliyah Boston",
       "team_abbr": "IND",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785440465.454821,
+      "returned_at": 1785481932.507168
     },
     "brittney griner": {
       "name": "Brittney Griner",
       "team_abbr": "CON",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "damiris dantas": {
       "name": "Damiris Dantas",
       "team_abbr": "IND",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "leonie fiebich": {
       "name": "Leonie Fiebich",
       "team_abbr": "NY",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "emma cechova": {
       "name": "Emma Cechova",
       "team_abbr": "MIN",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "chloe bibby": {
       "name": "Chloe Bibby",
-      "team_abbr": "CHI",
+      "team_abbr": "MIN",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "dijonai carrington": {
       "name": "DiJonai Carrington",
       "team_abbr": "CHI",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785440465.454821,
+      "returned_at": 1785481932.507168
     },
     "iliana rupert": {
       "name": "Iliana Rupert",
       "team_abbr": "GS",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "te-hina paopao": {
       "name": "Te-Hina Paopao",
       "team_abbr": "ATL",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "rickea jackson": {
       "name": "Rickea Jackson",
       "team_abbr": "CHI",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "ashlon jackson": {
       "name": "Ashlon Jackson",
       "team_abbr": "CON",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785538569.0624268,
+      "returned_at": 1785706969.69055
     },
     "kelsey plum": {
       "name": "Kelsey Plum",
-      "team_abbr": "LA",
+      "team_abbr": "PHX",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785785772.593505,
+      "returned_at": 1785959606.648366
     },
     "skylar diggins": {
       "name": "Skylar Diggins",
       "team_abbr": "CHI",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "janiah barker": {
       "name": "Janiah Barker",
       "team_abbr": "LV",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "sarah ashlee barker": {
       "name": "Sarah Ashlee Barker",
       "team_abbr": "POR",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "aaliyah edwards": {
       "name": "Aaliyah Edwards",
       "team_abbr": "CON",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
     },
     "maddy westbeld": {
       "name": "Maddy Westbeld",
       "team_abbr": "CHI",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "hailey van lith": {
       "name": "Hailey Van Lith",
       "team_abbr": "CON",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
     },
     "bree hall": {
       "name": "Bree Hall",
       "team_abbr": "IND",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "jovana nogic": {
       "name": "Jovana Nogic",
       "team_abbr": "PHX",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "dominique malonga": {
       "name": "Dominique Malonga",
       "team_abbr": "SEA",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785440465.454821,
+      "returned_at": 1785481932.507168
     },
     "marine johannes": {
       "name": "Marine Johannes",
       "team_abbr": "NY",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785391544.617706,
+      "returned_at": 1785440465.454821
     },
     "nyara sabally": {
       "name": "Nyara Sabally",
       "team_abbr": "TOR",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785440465.454821,
+      "returned_at": 1785481932.507168
     },
     "darianna littlepage-buggs": {
       "name": "Darianna Littlepage-Buggs",
       "team_abbr": "WSH",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
     },
     "taina mair": {
       "name": "Taina Mair",
       "team_abbr": "SEA",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "kara dunn": {
       "name": "Kara Dunn",
       "team_abbr": "PHX",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
     },
     "azura stevens": {
       "name": "Azura Stevens",
       "team_abbr": "CHI",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786055639.07301
     },
     "gabby williams": {
       "name": "Gabby Williams",
       "team_abbr": "GS",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1785538569.0624268,
+      "returned_at": 1785706969.69055
     },
     "shay ciezki": {
       "name": "Shay Ciezki",
       "team_abbr": "PHX",
       "was_out": true,
-      "out_last_seen": 1785391544.617706
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
+    },
+    "ta'niya latson": {
+      "name": "Ta'Niya Latson",
+      "team_abbr": "LV",
+      "was_out": true,
+      "out_last_seen": 1785481932.507168,
+      "returned_at": 1785538569.0624268
+    },
+    "anneli maley": {
+      "name": "Anneli Maley",
+      "team_abbr": "NY",
+      "was_out": true,
+      "out_last_seen": 1786055639.07301
+    },
+    "ornella bankole": {
+      "name": "Ornella Bankole",
+      "team_abbr": "TOR",
+      "was_out": true,
+      "out_last_seen": 1785959606.648366,
+      "returned_at": 1786047319.143125
+    },
+    "liatu king": {
+      "name": "Liatu King",
+      "team_abbr": "MIN",
+      "was_out": true,
+      "out_last_seen": 1785959606.648366,
+      "returned_at": 1786047319.143125
+    },
+    "isabelle harrison": {
+      "name": "Isabelle Harrison",
+      "team_abbr": "TOR",
+      "was_out": true,
+      "out_last_seen": 1785538569.0624268,
+      "returned_at": 1785706969.69055
+    },
+    "costanza verona": {
+      "name": "Costanza Verona",
+      "team_abbr": "DAL",
+      "was_out": true,
+      "out_last_seen": 1785538569.0624268,
+      "returned_at": 1785706969.69055
+    },
+    "haley jones": {
+      "name": "Haley Jones",
+      "team_abbr": "DAL",
+      "was_out": true,
+      "out_last_seen": 1785538569.0624268,
+      "returned_at": 1785706969.69055
+    },
+    "maria kliundikova": {
+      "name": "Maria Kliundikova",
+      "team_abbr": "CON",
+      "was_out": true,
+      "out_last_seen": 1786055639.07301
+    },
+    "jordan harrison": {
+      "name": "Jordan Harrison",
+      "team_abbr": "POR",
+      "was_out": true,
+      "out_last_seen": 1785959606.648366,
+      "returned_at": 1786047319.143125
+    },
+    "ugonne onyiah": {
+      "name": "Ugonne Onyiah",
+      "team_abbr": "IND",
+      "was_out": true,
+      "out_last_seen": 1786055639.07301
+    },
+    "alissa pili": {
+      "name": "Alissa Pili",
+      "team_abbr": "LA",
+      "was_out": true,
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
+    },
+    "aneesah morrow": {
+      "name": "Aneesah Morrow",
+      "team_abbr": "TOR",
+      "was_out": true,
+      "out_last_seen": 1785785772.593505,
+      "returned_at": 1785959606.648366
+    },
+    "monique akoa makani": {
+      "name": "Monique Akoa Makani",
+      "team_abbr": "LA",
+      "was_out": true,
+      "out_last_seen": 1785785772.593505,
+      "returned_at": 1785959606.648366
+    },
+    "marina mabrey": {
+      "name": "Marina Mabrey",
+      "team_abbr": "TOR",
+      "was_out": true,
+      "out_last_seen": 1785785772.593505,
+      "returned_at": 1785959606.648366
+    },
+    "tonie morgan": {
+      "name": "Tonie Morgan",
+      "team_abbr": "LA",
+      "was_out": true,
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
+    },
+    "miela sowah": {
+      "name": "Miela Sowah",
+      "team_abbr": "GS",
+      "was_out": true,
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
+    },
+    "ashten prechtel": {
+      "name": "Ashten Prechtel",
+      "team_abbr": "GS",
+      "was_out": true,
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
+    },
+    "alysha clark": {
+      "name": "Alysha Clark",
+      "team_abbr": "DAL",
+      "was_out": true,
+      "out_last_seen": 1786047319.143125,
+      "returned_at": 1786055639.07301
+    },
+    "sydney taylor": {
+      "name": "Sydney Taylor",
+      "team_abbr": "CHI",
+      "was_out": true,
+      "out_last_seen": 1786055639.07301
+    },
+    "katie lou samuelson": {
+      "name": "Katie Lou Samuelson",
+      "team_abbr": "SEA",
+      "was_out": true,
+      "out_last_seen": 1786055639.07301
+    },
+    "raegan beers": {
+      "name": "Raegan Beers",
+      "team_abbr": "CON",
+      "was_out": true,
+      "out_last_seen": 1786055639.07301
     }
   },
   "NBA": {

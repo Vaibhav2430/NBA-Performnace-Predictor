@@ -132,7 +132,7 @@ def fetch_wnba_team_stats() -> dict:
 
 
 # nba_api's WNBA team abbreviations differ from ESPN's for a few teams
-_NBA_API_TO_ESPN_ABBR = {"GSV": "GS", "LAS": "LA", "LVA": "LV", "NYL": "NY", "WAS": "WSH"}
+_NBA_API_TO_ESPN_ABBR = {"GSV": "GS", "LAS": "LA", "LVA": "LV", "NYL": "NY", "WAS": "WSH", "PDX": "POR"}
 
 _ROSTER_TTL = 300  # seconds
 _roster_df_cache: dict = {}  # season -> (timestamp, df)
