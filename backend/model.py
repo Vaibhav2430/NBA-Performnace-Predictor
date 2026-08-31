@@ -2,7 +2,10 @@ import time
 from datetime import date
 import numpy as np
 import pandas as pd
-from nba_api.stats.endpoints import playergamelog, leaguedashteamstats, leaguedashplayerstats, playbyplayv3
+from nba_api.stats.endpoints import (
+    playergamelog, leaguedashteamstats, leaguedashplayerstats, playbyplayv3,
+    scheduleleaguev2,
+)
 from nba_api.stats.static import players as nba_players, teams as nba_teams
 from xgboost import XGBRegressor
 import defense_by_position as dbp
@@ -108,6 +111,50 @@ def _parse_opponent(matchup: str) -> str:
     return matchup.split(sep)[1].strip()
 
 
+_SCHEDULE_TTL = 3600  # seconds - the league schedule barely changes intraday
+_schedule_cache: dict = {}
+
+
+def _fetch_league_schedule() -> pd.DataFrame:
+    hit = _schedule_cache.get("df")
+    if hit is not None and time.time() - _schedule_cache.get("ts", 0) < _SCHEDULE_TTL:
+        return hit
+    try:
+        time.sleep(0.65)
+        df = scheduleleaguev2.ScheduleLeagueV2(timeout=30).get_data_frames()[0]
+    except Exception:
+        df = pd.DataFrame()
+    _schedule_cache.update(df=df, ts=time.time())
+    return df
+
+
+def _next_game(team_abbr: str, last_game_date) -> dict | None:
+    """Next scheduled (not-yet-played) game for `team_abbr`, as
+    {"opp_abbr", "home", "days_rest"} - or None if the schedule can't be read
+    or every game is already final (offseason)."""
+    sched = _fetch_league_schedule()
+    if sched.empty or not team_abbr:
+        return None
+    is_team  = (sched["homeTeam_teamTricode"] == team_abbr) | (sched["awayTeam_teamTricode"] == team_abbr)
+    upcoming = sched[is_team & (sched["gameStatus"] == 1)].copy()  # 1 = scheduled
+    if upcoming.empty:
+        return None
+    upcoming["_dt"] = pd.to_datetime(upcoming["gameDateEst"], errors="coerce", utc=True).dt.tz_localize(None)
+    upcoming = upcoming.dropna(subset=["_dt"]).sort_values("_dt")
+    if upcoming.empty:
+        return None
+
+    row     = upcoming.iloc[0]
+    is_home = row["homeTeam_teamTricode"] == team_abbr
+    opp     = row["awayTeam_teamTricode"] if is_home else row["homeTeam_teamTricode"]
+
+    days_rest = 2.0
+    if last_game_date is not None and pd.notna(last_game_date):
+        gap = (row["_dt"].normalize() - pd.Timestamp(last_game_date).normalize()).days
+        days_rest = float(np.clip(gap, 0, 10))
+    return {"opp_abbr": opp, "home": 1.0 if is_home else 0.0, "days_rest": days_rest}
+
+
 def find_player(name: str) -> dict | None:
     all_p = nba_players.get_players()
     nl = name.lower().strip()
@@ -202,7 +249,17 @@ def _next_features(
     avg_pace: float,
     avg_pos: dict,
     team_pace: float,
+    team_stats: dict,
+    player_pos: str,
+    pos_def: dict,
+    next_game: dict | None,
 ) -> np.ndarray:
+    """Feature row for the upcoming game. When the real next opponent is known
+    (next_game), plug in that team's actual defense / pace / defense-vs-position
+    and the real home/away + days-rest; otherwise fall back to league averages
+    and a neutral venue."""
+    opp_abbr  = next_game["opp_abbr"] if next_game else None
+    opp_stats = team_stats.get(opp_abbr, {}) if opp_abbr else {}
     feats = {
         "pts_l5":               df["PTS"].tail(5).mean(),
         "pts_l10":              df["PTS"].tail(10).mean(),
@@ -211,14 +268,14 @@ def _next_features(
         "reb_l5":               df["REB"].tail(5).mean(),
         "reb_l10":              df["REB"].tail(10).mean(),
         "min_l5":               df["MIN"].tail(5).mean(),
-        "home":                 0.5,
-        "days_rest":            2.0,
-        "opp_def_rtg":          avg_def_rtg,
-        "opp_pace":             avg_pace,
+        "home":                 next_game["home"]      if next_game else 0.5,
+        "days_rest":            next_game["days_rest"] if next_game else 2.0,
+        "opp_def_rtg":          opp_stats.get("def_rtg", avg_def_rtg),
+        "opp_pace":             opp_stats.get("pace",    avg_pace),
         "team_pace":            team_pace,
-        "opp_def_pts_vs_pos":   avg_pos["pts"],
-        "opp_def_ast_vs_pos":   avg_pos["ast"],
-        "opp_def_reb_vs_pos":   avg_pos["reb"],
+        "opp_def_pts_vs_pos":   dbp.get_def_vs_pos(opp_abbr, player_pos, "pts", pos_def, avg_pos["pts"]) if opp_abbr else avg_pos["pts"],
+        "opp_def_ast_vs_pos":   dbp.get_def_vs_pos(opp_abbr, player_pos, "ast", pos_def, avg_pos["ast"]) if opp_abbr else avg_pos["ast"],
+        "opp_def_reb_vs_pos":   dbp.get_def_vs_pos(opp_abbr, player_pos, "reb", pos_def, avg_pos["reb"]) if opp_abbr else avg_pos["reb"],
         **_home_away_avgs(df),
     }
     return np.array([[feats[c] for c in FEATURE_COLS]])
@@ -268,9 +325,20 @@ def predict(player_name: str) -> dict:
     df["OPP_DEF_AST_VS_POS"] = df["OPP"].apply(lambda x: dbp.get_def_vs_pos(x, player_pos, "ast", pos_def, avg_pos["ast"]))
     df["OPP_DEF_REB_VS_POS"] = df["OPP"].apply(lambda x: dbp.get_def_vs_pos(x, player_pos, "reb", pos_def, avg_pos["reb"]))
 
+    next_game = _next_game(player_team_abbr, df["GAME_DATE"].iloc[-1])
+
     feature_df = _build_features(df)
     X = feature_df[FEATURE_COLS].values
-    X_next = _next_features(df, avg_def_rtg, avg_pace, avg_pos, team_pace)
+    X_next = _next_features(df, avg_def_rtg, avg_pace, avg_pos, team_pace,
+                            team_stats, player_pos, pos_def, next_game)
+
+    # Projected minutes for the next game: recent workload, tilted toward the
+    # most recent handful of games. Used below as a ceiling on each stat - a
+    # player can't run far past his per-minute rate x the minutes he'll play.
+    if len(df) >= 3:
+        proj_min = float(0.65 * df["MIN"].tail(3).mean() + 0.35 * df["MIN"].tail(10).mean())
+    else:
+        proj_min = float(df["MIN"].mean())
 
     n = len(X)
     sample_weights = np.ones(n)
@@ -294,11 +362,22 @@ def predict(player_name: str) -> dict:
             verbosity=0,
         )
         model.fit(X, y, sample_weight=sample_weights)
-        pred       = max(0.0, float(model.predict(X_next)[0]))
-        curr_games = df[stat].tail(current_season_n) if current_season_n > 0 else df[stat]
-        season_avg = float(curr_games.mean())
-        std        = float(curr_games.std())
-        pred       = min(pred, season_avg + std)
+        pred = max(0.0, float(model.predict(X_next)[0]))
+
+        curr_games   = df[stat].tail(current_season_n) if current_season_n > 0 else df[stat]
+        curr_min     = df["MIN"].tail(current_season_n) if current_season_n > 0 else df["MIN"]
+        season_avg   = float(curr_games.mean())
+        std          = float(curr_games.std())
+        curr_min_avg = float(curr_min.mean())
+
+        # Symmetric sanity band around the season average, then a minutes-based
+        # ceiling on top (per-minute rate x projected minutes, +15% headroom).
+        lo = max(0.0, season_avg - 2 * std)
+        hi = season_avg + 2 * std
+        if curr_min_avg > 0:
+            hi = min(hi, season_avg / curr_min_avg * proj_min * 1.15)
+        hi   = max(hi, lo)
+        pred = float(np.clip(pred, lo, hi))
 
         predictions[stat] = {
             "prediction": round(pred, 1),
@@ -324,6 +403,15 @@ def predict(player_name: str) -> dict:
         "team_def_rank": player_team_info.get("def_rank"),
         "season":        CURRENT_SEASON,
         "games_used":    len(df),
+        "proj_min":      round(proj_min, 1),
+        "next_opponent": (
+            {
+                "abbr":     next_game["opp_abbr"],
+                "home":     bool(next_game["home"]),
+                "def_rank": team_stats.get(next_game["opp_abbr"], {}).get("def_rank"),
+                "off_rank": team_stats.get(next_game["opp_abbr"], {}).get("off_rank"),
+            } if next_game else None
+        ),
         "predictions":   predictions,
         "game_log":      game_log.to_dict(orient="records"),
     }

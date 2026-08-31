@@ -438,6 +438,13 @@ def predict(player_name: str) -> dict:
 
     next_game  = _next_opponent(player.get("team_id", ""), df["GAME_DATE"].iloc[-1])
 
+    # Projected minutes for the next game: recent workload, tilted toward the
+    # most recent games. Used below as a ceiling on each stat.
+    if len(df) >= 3:
+        proj_min = float(0.65 * df["MIN"].tail(3).mean() + 0.35 * df["MIN"].tail(10).mean())
+    else:
+        proj_min = float(df["MIN"].mean())
+
     feature_df   = _build_features(df)
     n            = len(feature_df)
     small_sample = n < SMALL_SAMPLE_CUTOFF
@@ -485,10 +492,20 @@ def predict(player_name: str) -> dict:
             def_factor     = min(1.15, max(0.85, def_factor))
             pred          *= def_factor
 
-        curr_games = df[stat].tail(current_season_n) if current_season_n > 0 else df[stat]
-        season_avg = float(curr_games.mean())
-        std        = float(curr_games.std())
-        pred       = min(pred, season_avg + std)
+        curr_games   = df[stat].tail(current_season_n) if current_season_n > 0 else df[stat]
+        curr_min     = df["MIN"].tail(current_season_n) if current_season_n > 0 else df["MIN"]
+        season_avg   = float(curr_games.mean())
+        std          = float(curr_games.std())
+        curr_min_avg = float(curr_min.mean())
+
+        # Symmetric sanity band around the season average, then a minutes-based
+        # ceiling on top (per-minute rate x projected minutes, +15% headroom).
+        lo = max(0.0, season_avg - 2 * std)
+        hi = season_avg + 2 * std
+        if curr_min_avg > 0:
+            hi = min(hi, season_avg / curr_min_avg * proj_min * 1.15)
+        hi   = max(hi, lo)
+        pred = float(np.clip(pred, lo, hi))
 
         predictions[stat] = {
             "prediction": round(pred, 1),
@@ -514,6 +531,15 @@ def predict(player_name: str) -> dict:
         "league":        "WNBA",
         "season":        _current_wnba_season(),
         "games_used":    len(df),
+        "proj_min":      round(proj_min, 1),
+        "next_opponent": (
+            {
+                "abbr":     next_game["opp_abbr"],
+                "home":     bool(next_game["home"]),
+                "def_rank": team_stats.get(next_game["opp_abbr"], {}).get("def_rank"),
+                "off_rank": team_stats.get(next_game["opp_abbr"], {}).get("off_rank"),
+            } if next_game else None
+        ),
         "predictions":   predictions,
         "game_log":      game_log[["GAME_DATE", "OPP_ABBR", "OPP_NAME", "OPP_LOGO", "WL", "MIN", "PTS", "AST", "REB", "OPP_OFF_RANK", "OPP_DEF_RANK"]].to_dict(orient="records"),
     }

@@ -242,6 +242,38 @@ def _apply_return_dampening(result: dict, league: str) -> None:
     result["return_dampening"] = dampers_applied
 
 
+# Statuses where the player will most likely suit up but at reduced or
+# uncertain load - shade the projection down. "Out" is handled separately
+# (no prediction is logged at all).
+_QUESTIONABLE_MULT = {
+    "doubtful":           0.60,
+    "questionable":       0.85,
+    "game time decision": 0.85,
+    "game-time decision": 0.85,
+    "day-to-day":         0.93,
+}
+
+
+def _apply_questionable_gate(result: dict, injury: dict | None) -> None:
+    """Mutate result['predictions'] in-place, scaling every stat down when the
+    player himself is not fully cleared to play."""
+    if not injury:
+        return
+    status = (injury.get("status") or "").strip().lower()
+    mult   = _QUESTIONABLE_MULT.get(status)
+    if not mult:
+        return
+
+    for p in result.get("predictions", {}).values():
+        orig = float(p["prediction"])
+        p["prediction"]        = round(orig * mult, 1)
+        p["season_avg"]        = p.get("season_avg", orig)   # keep originals for display
+        p["last5_avg"]         = p.get("last5_avg", orig)
+        p["questionable_gate"] = round((mult - 1) * 100, 1)
+
+    result["questionable_gate"] = {"status": injury.get("status"), "mult": mult}
+
+
 @asynccontextmanager
 async def lifespan(_app):
     threading.Thread(target=_seed_if_needed, daemon=True).start()
@@ -275,6 +307,7 @@ def predict_endpoint(request: Request, player: str = Query(..., description="Pla
         p = nba_find_player(player)
         _apply_teammate_boosts(result, "NBA", target_id=p["id"] if p else None)
         _apply_return_dampening(result, "NBA")
+        _apply_questionable_gate(result, injury)
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:
@@ -318,6 +351,7 @@ def wnba_predict(request: Request, player: str = Query(...)):
         p = wnba_model.find_player(player)
         _apply_teammate_boosts(result, "WNBA", target_id=p["id"] if p else None)
         _apply_return_dampening(result, "WNBA")
+        _apply_questionable_gate(result, injury)
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:

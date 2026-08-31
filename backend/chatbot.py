@@ -23,6 +23,14 @@ def _canonical(raw_name: str) -> str:
     return _ALIASES.get(raw_name.lower().strip(), raw_name)
 
 
+def _ordinal(n: int) -> str:
+    if 10 <= n % 100 <= 20:
+        suffix = "th"
+    else:
+        suffix = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suffix}"
+
+
 # ── Q2 / Q3: per-player hit rate ──────────────────────────────────────────
 def player_hit_rates(log: list, league: str | None = None, min_picks: int = 5) -> list[dict]:
     """Group resolved predictions by player and grade each stat over/under the
@@ -156,9 +164,19 @@ def build_reasoning(result: dict, league: str = "NBA") -> dict:
         blocks.append("".join(parts))
 
     context: list[str] = []
+    opp = result.get("next_opponent")
+    if opp and opp.get("abbr"):
+        where = "home vs" if opp.get("home") else "away at"
+        rank  = f", {_ordinal(opp['def_rank'])} in defensive rating" if opp.get("def_rank") else ""
+        context.append(f"Next up: {where} {opp['abbr']}{rank}.")
     mt = _minutes_trend(game_log)
     if mt:
         context.append(mt)
+    if result.get("proj_min"):
+        context.append(f"Projected ~{result['proj_min']} minutes, which caps the ceiling on each stat.")
+    if result.get("questionable_gate"):
+        g = result["questionable_gate"]
+        context.append(f"Scaled down {abs(round((g['mult']-1)*100))}% because he's listed {g['status']}.")
     if boosts:
         names = ", ".join(b["player"] for b in boosts)
         context.append(f"Usage boost applied with {names} out — their touches redistribute toward {player}.")
