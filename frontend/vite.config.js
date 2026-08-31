@@ -12,6 +12,7 @@ export default defineConfig({
       '/team_preview':     'http://localhost:8000',
       '/wnba':             'http://localhost:8000',
       '/accuracy':         'http://localhost:8000',
+      '/chat':             'http://localhost:8000',
     },
   },
 })

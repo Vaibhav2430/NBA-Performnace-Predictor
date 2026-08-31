@@ -3,7 +3,7 @@ import logging
 import threading
 import pandas as pd
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Request
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Request, Body
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -22,6 +22,7 @@ import odds
 import tracker
 import injuries
 import team_context
+import chatbot
 
 logger = logging.getLogger(__name__)
 
@@ -462,6 +463,31 @@ def _resolve_all_locked():
 def accuracy_endpoint(request: Request, background_tasks: BackgroundTasks, league: str = Query(default=None)):
     background_tasks.add_task(_resolve_all)
     return tracker.compute_stats(tracker.load_log(), league=league)
+
+
+@app.get("/chat/leaderboard")
+@limiter.limit("30/minute")
+def chat_leaderboard(
+    request: Request,
+    background_tasks: BackgroundTasks,
+    league: str = Query(default=None),
+    limit: int = Query(default=10, ge=1, le=25),
+    min_picks: int = Query(default=5, ge=1, le=50),
+):
+    """Best / worst player hit rates over resolved predictions (chatbot Q2/Q3)."""
+    background_tasks.add_task(_resolve_all)
+    return chatbot.leaderboard(tracker.load_log(), league=league, limit=limit, min_picks=min_picks)
+
+
+@app.post("/chat/reasoning")
+@limiter.limit("30/minute")
+def chat_reasoning(request: Request, payload: dict = Body(...), league: str = Query(default="NBA")):
+    """Explain an already-fetched /predict payload in plain language (chatbot Q1).
+    The frontend posts back the prediction result it already has, so this does
+    no model re-run."""
+    if not payload or not payload.get("predictions"):
+        raise HTTPException(status_code=400, detail="Search a player first, then ask for the reasoning.")
+    return chatbot.build_reasoning(payload, league=league)
 
 
 def _seed_all(league: str):

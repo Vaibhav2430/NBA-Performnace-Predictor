@@ -7,6 +7,7 @@ import PropCards from './components/PropCards'
 import StatChart from './components/StatChart'
 import GameLogTable from './components/GameLogTable'
 import TeamPreview from './components/TeamPreview'
+import Chatbot from './components/Chatbot'
 import { teamLogoUrl as teamLogoUrlFor } from './teamLogo'
 
 export default function App() {
@@ -176,6 +177,8 @@ export default function App() {
           )}
         </main>
       </div>
+
+      <Chatbot league={league} currentData={data} />
     </>
   )
 }
