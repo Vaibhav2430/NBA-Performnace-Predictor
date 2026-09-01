@@ -507,10 +507,16 @@ def predict(player_name: str) -> dict:
         hi   = max(hi, lo)
         pred = float(np.clip(pred, lo, hi))
 
+        # Outcome spread: model's own training-row error, bumped for in-sample
+        # optimism and floored by the player's raw volatility. Feeds _attach_p_over().
+        resid = y - model.predict(X)
+        sigma = max(float(np.std(resid)) * 1.15, 0.6 * std, 0.5)
+
         predictions[stat] = {
             "prediction": round(pred, 1),
             "last5_avg":  round(float(df[stat].tail(5).mean()), 1),
             "season_avg": round(season_avg, 1),
+            "sigma":      round(sigma, 2),
         }
 
     game_log = (

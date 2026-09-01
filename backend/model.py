@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from nba_api.stats.endpoints import (
     playergamelog, leaguedashteamstats, leaguedashplayerstats, playbyplayv3,
-    scheduleleaguev2,
+    scheduleleaguev2, teamgamelogs,
 )
 from nba_api.stats.static import players as nba_players, teams as nba_teams
 from xgboost import XGBRegressor
@@ -64,6 +64,62 @@ def fetch_team_defense_stats() -> dict:
         for _, row in df.iterrows()
         if pd.notna(row["TEAM_ABBREVIATION"])
     }
+
+
+_ADV_LOG_TTL = 3600  # seconds
+_adv_log_cache: dict = {}  # season -> (timestamp, {team_abbr: DataFrame})
+_ROLLING_WINDOW    = 15    # opponent's last N games used for "as-of" defense/pace
+_ROLLING_MIN_PRIOR = 5     # below this many prior games, fall back to season-to-date
+
+
+def _team_advanced_logs(season: str) -> dict:
+    """{team_abbr: DataFrame[GAME_DATE, DEF_RATING, OFF_RATING, PACE]} for one
+    season, one game per row, sorted by date. One league-wide API call, cached."""
+    hit = _adv_log_cache.get(season)
+    if hit and time.time() - hit[0] < _ADV_LOG_TTL:
+        return hit[1]
+    out: dict = {}
+    try:
+        time.sleep(0.65)
+        df = teamgamelogs.TeamGameLogs(
+            season_nullable=season,
+            measure_type_player_game_logs_nullable="Advanced",
+            timeout=30,
+        ).get_data_frames()[0]
+        df = df[["TEAM_ABBREVIATION", "GAME_DATE", "DEF_RATING", "OFF_RATING", "PACE"]].copy()
+        df["GAME_DATE"] = pd.to_datetime(df["GAME_DATE"])
+        for abbr, g in df.groupby("TEAM_ABBREVIATION"):
+            out[abbr] = g.sort_values("GAME_DATE").reset_index(drop=True)
+    except Exception:
+        out = {}
+    _adv_log_cache[season] = (time.time(), out)
+    return out
+
+
+def _team_def_timeseries() -> dict:
+    """Current + previous season advanced game logs merged per team, so games
+    from a concatenated prior season still get a real 'as-of' opponent rating."""
+    merged: dict = {}
+    for season in (_prev_nba_season(), CURRENT_SEASON):
+        for abbr, g in _team_advanced_logs(season).items():
+            merged[abbr] = pd.concat([merged[abbr], g], ignore_index=True) if abbr in merged else g
+    for abbr in merged:
+        merged[abbr] = merged[abbr].sort_values("GAME_DATE").reset_index(drop=True)
+    return merged
+
+
+def _rolling_opp(ts_map: dict, opp_abbr: str, game_date, col: str, fallback: float) -> float:
+    """Opponent's mean `col` (DEF_RATING / PACE / ...) over its last
+    _ROLLING_WINDOW games strictly before `game_date` - i.e. how that defense
+    actually looked at the time this game was played, not season-to-date.
+    Falls back to the season-to-date value when there isn't enough prior history."""
+    g = ts_map.get(opp_abbr)
+    if g is None or g.empty:
+        return fallback
+    prior = g.loc[g["GAME_DATE"] < game_date, col].tail(_ROLLING_WINDOW)
+    if len(prior) < _ROLLING_MIN_PRIOR:
+        return fallback
+    return float(prior.mean())
 
 
 _ROSTER_TTL = 300  # seconds
@@ -315,8 +371,18 @@ def predict(player_name: str) -> dict:
     team_pace = float(player_team_info.get("pace", avg_pace))
 
     df["OPP"]                = df["MATCHUP"].apply(_parse_opponent)
-    df["OPP_DEF_RTG"]        = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("def_rtg",  avg_def_rtg))
-    df["OPP_PACE"]           = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("pace",     avg_pace))
+
+    # Opponent defense/pace "as of" each game - a trailing window of the
+    # opponent's prior games - instead of one season-to-date number stamped on
+    # every row. Inference (_next_features) still uses season-to-date, which is
+    # the correct as-of-now value, so train and serve now mean the same thing.
+    opp_ts = _team_def_timeseries()
+    df["OPP_DEF_RTG"] = df.apply(
+        lambda r: _rolling_opp(opp_ts, r["OPP"], r["GAME_DATE"], "DEF_RATING",
+                               team_stats.get(r["OPP"], {}).get("def_rtg", avg_def_rtg)), axis=1)
+    df["OPP_PACE"] = df.apply(
+        lambda r: _rolling_opp(opp_ts, r["OPP"], r["GAME_DATE"], "PACE",
+                               team_stats.get(r["OPP"], {}).get("pace", avg_pace)), axis=1)
     df["TEAM_PACE"]          = team_pace
     df["OPP_OFF_RANK"]       = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("off_rank"))
     df["OPP_DEF_RANK"]       = df["OPP"].apply(lambda x: team_stats.get(x, {}).get("def_rank"))
@@ -379,10 +445,18 @@ def predict(player_name: str) -> dict:
         hi   = max(hi, lo)
         pred = float(np.clip(pred, lo, hi))
 
+        # Spread of the outcome distribution: how far off the model has been on
+        # its own training rows, bumped 15% for in-sample optimism and floored
+        # by the player's raw game-to-game volatility so a streaky player never
+        # gets an artificially tight distribution. Consumed by _attach_p_over().
+        resid = y - model.predict(X)
+        sigma = max(float(np.std(resid)) * 1.15, 0.6 * std, 0.5)
+
         predictions[stat] = {
             "prediction": round(pred, 1),
             "last5_avg":  round(float(df[stat].tail(5).mean()), 1),
             "season_avg": round(season_avg, 1),
+            "sigma":      round(sigma, 2),
         }
 
     game_log = (

@@ -1,3 +1,4 @@
+import math
 import time
 import logging
 import threading
@@ -274,6 +275,26 @@ def _apply_questionable_gate(result: dict, injury: dict | None) -> None:
     result["questionable_gate"] = {"status": injury.get("status"), "mult": mult}
 
 
+def _normal_cdf(z: float) -> float:
+    return 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
+
+
+def _attach_p_over(result: dict) -> None:
+    """For every stat with a posted line, add the model's probability the
+    result lands OVER the line: P(X > line) for X ~ Normal(prediction, sigma).
+    Call this last - after every adjustment that can move `prediction`."""
+    lines = result.get("lines") or {}
+    for stat, p in result.get("predictions", {}).items():
+        line  = lines.get(stat)
+        sigma = p.get("sigma")
+        if line is None or not sigma:
+            continue
+        z = (float(line) - float(p["prediction"])) / max(float(sigma), 1e-6)
+        p_over = round(1.0 - _normal_cdf(z), 3)
+        p["p_over"]  = p_over
+        p["p_under"] = round(1.0 - p_over, 3)
+
+
 @asynccontextmanager
 async def lifespan(_app):
     threading.Thread(target=_seed_if_needed, daemon=True).start()
@@ -308,6 +329,7 @@ def predict_endpoint(request: Request, player: str = Query(..., description="Pla
         _apply_teammate_boosts(result, "NBA", target_id=p["id"] if p else None)
         _apply_return_dampening(result, "NBA")
         _apply_questionable_gate(result, injury)
+        _attach_p_over(result)
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:
@@ -352,6 +374,7 @@ def wnba_predict(request: Request, player: str = Query(...)):
         _apply_teammate_boosts(result, "WNBA", target_id=p["id"] if p else None)
         _apply_return_dampening(result, "WNBA")
         _apply_questionable_gate(result, injury)
+        _attach_p_over(result)
         inj_status = injury["status"] if injury else None
         is_out = inj_status and inj_status.lower() == "out"
         if p and not is_out:
@@ -552,6 +575,8 @@ def _seed_all(league: str):
             player_name = result["player"]
             p = nba_find_player(player_name) if league == "NBA" else wnba_model.find_player(player_name)
             if p:
+                result["lines"] = lines
+                _attach_p_over(result)
                 tracker.log_prediction(player_name, p["id"], league, lines, result["predictions"], game_date=game_date)
         except Exception:
             continue

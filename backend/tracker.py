@@ -44,6 +44,9 @@ def log_prediction(player: str, player_id, league: str, lines: dict, predictions
             "lines":          {k: float(v) for k, v in lines.items()},
             "predicted":      {k: round(float(predictions[k]["prediction"]), 1)
                                for k in predictions if k in lines},
+            "p_over":         {k: predictions[k]["p_over"]
+                               for k in predictions
+                               if k in lines and predictions[k].get("p_over") is not None},
             "actual":         {},
             "resolved":       False,
             "injury_status":  injury_status,

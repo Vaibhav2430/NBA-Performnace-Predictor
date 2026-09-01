@@ -145,7 +145,16 @@ def build_reasoning(result: dict, league: str = "NBA") -> dict:
             parts.append(" — " + ", ".join(rel))
 
         line = lines.get(stat)
-        if line is not None:
+        p_over = p.get("p_over")
+        if line is not None and p_over is not None:
+            if 0.45 <= p_over <= 0.55:
+                parts.append(f". Line {line}: near a coin flip ({round(p_over * 100)}% over).")
+            else:
+                side = "over" if p_over > 0.5 else "under"
+                conf = round((p_over if p_over > 0.5 else 1 - p_over) * 100)
+                parts.append(f". Line {line}: {conf}% to go {side}.")
+                leans.append(f"{stat} {side.upper()} {conf}%")
+        elif line is not None:
             diff = round(pred - line, 1)
             if abs(diff) < 0.3:
                 parts.append(f". Sits on the posted line ({line}).")
